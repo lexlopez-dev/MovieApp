@@ -1,6 +1,8 @@
 package com.lexandroid.movieapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +14,7 @@ import com.lexandroid.movieapp.request.Service;
 import com.lexandroid.movieapp.response.MovieSearchResponse;
 import com.lexandroid.movieapp.utils.Credentials;
 import com.lexandroid.movieapp.utils.MovieApi;
+import com.lexandroid.movieapp.viewmodels.MovieListViewModel;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,6 +27,10 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     Button btn;
+
+    //ViewModel
+    private MovieListViewModel movieListViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,12 +38,9 @@ public class MainActivity extends AppCompatActivity {
 
         btn = findViewById(R.id.button);
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getRetrofitResponseAccordingToID();
-            }
-        });
+        movieListViewModel = new ViewModelProvider(this).get(MovieListViewModel.class);
+
+
     }
 
     private void getRetrofitResponse() {
@@ -50,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         .searchMovie(
                 Credentials.API_KEY,
                 "Jack Reacher",
-                "1");
+                1);
 
         Log.v("Debug", "Able to get response call from movieApi.searchMovie");
 
@@ -113,6 +117,17 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<MovieModel> call, Throwable t) {
+
+            }
+        });
+    }
+
+    // Observing any changes in the data
+    private void observeAnyChange() {
+        movieListViewModel.getMovies().observe(this, new Observer<List<MovieModel>>() {
+            @Override
+            public void onChanged(List<MovieModel> movieModels) {
+                // Observing for any data change
 
             }
         });

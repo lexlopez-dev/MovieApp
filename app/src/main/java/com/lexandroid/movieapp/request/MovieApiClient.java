@@ -48,7 +48,7 @@ public class MovieApiClient {
     }
 
 
-    //
+    // 1 - This method that we are going to call through the classes
     public void searchMoviesApi(String query, int page) {
 
         if(retrieveMoviesRunnable != null) {
@@ -65,7 +65,7 @@ public class MovieApiClient {
                 //Cancelling the retrofit call
                 myHandler.cancel(true);
             }
-        }, 5000, TimeUnit.MICROSECONDS);
+        }, 3000, TimeUnit.MILLISECONDS);
     }
 
     //Retrieving data from rest api

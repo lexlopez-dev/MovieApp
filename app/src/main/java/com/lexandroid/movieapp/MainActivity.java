@@ -26,6 +26,9 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    //Before we run our app, we need to add the Network Security config
+
+
     Button btn;
 
     //ViewModel
@@ -40,87 +43,105 @@ public class MainActivity extends AppCompatActivity {
 
         movieListViewModel = new ViewModelProvider(this).get(MovieListViewModel.class);
 
+        //Calling the observers
+        observeAnyChange();
 
-    }
-
-    private void getRetrofitResponse() {
-        Log.v("Debug", "Able to start getRetrofitResponse");
-
-        MovieApi movieApi = Service.getMovieApi();
-
-        Log.v("Debug", "Able to create movie api");
-
-        Call<MovieSearchResponse> responseCall = movieApi
-        .searchMovie(
-                Credentials.API_KEY,
-                "Jack Reacher",
-                1);
-
-        Log.v("Debug", "Able to get response call from movieApi.searchMovie");
-
-        responseCall.enqueue(new Callback<MovieSearchResponse>() {
+        //Testing the searchMovieApiMethod
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<MovieSearchResponse> call, Response<MovieSearchResponse> response) {
-                if(response.code() == 200) {
-                    Log.v("Tag", "Response here: "+ response.body().toString());
+            public void onClick(View view) {
 
-                    List<MovieModel> movies = new ArrayList<>(response.body().getMovies());
-
-                    for (MovieModel movie: movies) {
-                        Log.v("Tag", "Movie Name: " + movie.getOriginal_title());
-                    }
-                }
-                else {
-                    try {
-                        Log.v("Tag", "Error" + response.errorBody().string());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<MovieSearchResponse> call, Throwable t) {
-
+                //Displaying only the results of page 1
+                searchMovieApi("Fast", 1);
             }
         });
+
+
     }
 
-    private void getRetrofitResponseAccordingToID() {
-        Log.v("Debug", "Able to start getRetrofitResponseAccordingToID");
-
-        MovieApi movieApi = Service.getMovieApi();
-
-        Call<MovieModel> responseCall = movieApi
-                .getMovie(
-                        550,
-                        Credentials.API_KEY
-                );
-
-        Log.v("Debug", "Able to get response call from movieApi.getMovie");
-
-        responseCall.enqueue(new Callback<MovieModel>() {
-            @Override
-            public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {
-                if(response.code() == 200) {
-                    MovieModel movie = response.body();
-                    Log.v("Tag", "The Response: " + movie.getOriginal_title());
-                } else {
-                    try {
-                        Log.v("Tag", "Error: " + response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MovieModel> call, Throwable t) {
-
-            }
-        });
+    // 4 - Calling Method in Main Activity
+    private void searchMovieApi(String query, int page) {
+        movieListViewModel.searchMovieApi(query, page);
     }
+
+//    private void getRetrofitResponse() {
+//        Log.v("Debug", "Able to start getRetrofitResponse");
+//
+//        MovieApi movieApi = Service.getMovieApi();
+//
+//        Log.v("Debug", "Able to create movie api");
+//
+//        Call<MovieSearchResponse> responseCall = movieApi
+//        .searchMovie(
+//                Credentials.API_KEY,
+//                "Jack Reacher",
+//                1);
+//
+//        Log.v("Debug", "Able to get response call from movieApi.searchMovie");
+//
+//        responseCall.enqueue(new Callback<MovieSearchResponse>() {
+//            @Override
+//            public void onResponse(Call<MovieSearchResponse> call, Response<MovieSearchResponse> response) {
+//                if(response.code() == 200) {
+//                    Log.v("Tag", "Response here: "+ response.body().toString());
+//
+//                    List<MovieModel> movies = new ArrayList<>(response.body().getMovies());
+//
+//                    for (MovieModel movie: movies) {
+//                        Log.v("Tag", "Movie Name: " + movie.getOriginal_title());
+//                    }
+//                }
+//                else {
+//                    try {
+//                        Log.v("Tag", "Error" + response.errorBody().string());
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<MovieSearchResponse> call, Throwable t) {
+//
+//            }
+//        });
+//    }
+//
+//    private void getRetrofitResponseAccordingToID() {
+//        Log.v("Debug", "Able to start getRetrofitResponseAccordingToID");
+//
+//        MovieApi movieApi = Service.getMovieApi();
+//
+//        Call<MovieModel> responseCall = movieApi
+//                .getMovie(
+//                        550,
+//                        Credentials.API_KEY
+//                );
+//
+//        Log.v("Debug", "Able to get response call from movieApi.getMovie");
+//
+//        responseCall.enqueue(new Callback<MovieModel>() {
+//            @Override
+//            public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {
+//                if(response.code() == 200) {
+//                    MovieModel movie = response.body();
+//                    Log.v("Tag", "The Response: " + movie.getOriginal_title());
+//                } else {
+//                    try {
+//                        Log.v("Tag", "Error: " + response.errorBody().string());
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<MovieModel> call, Throwable t) {
+//
+//            }
+//        });
+//    }
 
     // Observing any changes in the data
     private void observeAnyChange() {
@@ -128,7 +149,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<MovieModel> movieModels) {
                 // Observing for any data change
-
+                if(movieModels != null) {
+                    for(MovieModel movieModel: movieModels) {
+                        //Get the data in log
+                        Log.v("Tag", "onChanges: " + movieModel.getOriginal_title());
+                    }
+                }
             }
         });
     }

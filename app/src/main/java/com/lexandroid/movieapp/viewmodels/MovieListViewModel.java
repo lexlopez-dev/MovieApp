@@ -23,4 +23,11 @@ public class MovieListViewModel extends ViewModel {
     public LiveData<List<MovieModel>> getMovies() {
         return movieRepository.getMovies();
     }
+
+
+    // 3 - Calling method in viewmodel
+    public void searchMovieApi(String query, int page) {
+        movieRepository.searchMovieApi(query, page);
+    }
+
 }

@@ -8,7 +8,9 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.lexandroid.movieapp.models.MovieModel;
+import com.lexandroid.movieapp.utils.Credentials;
 
 public class MovieDetails extends AppCompatActivity {
     //Widgets
@@ -35,6 +37,14 @@ public class MovieDetails extends AppCompatActivity {
         if (getIntent().hasExtra("movie")) {
             MovieModel movieModel = getIntent().getParcelableExtra("movie");
             Log.v("Tagy", "incoming intent" + movieModel.getMovie_id());
+
+            titleDetails.setText(movieModel.getOriginal_title());
+            descriptionDetails.setText(movieModel.getOverview());
+            ratingBarDetails.setRating(movieModel.getVote_average());
+
+            Glide.with(this)
+                    .load(Credentials.IMG_URL + movieModel.getBackdrop_path())
+                    .into(imageViewDetails);
         }
     }
 }

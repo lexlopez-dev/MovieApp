@@ -1,68 +1,136 @@
 package com.lexandroid.movieapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
 
+import com.lexandroid.movieapp.adapters.MovieRecyclerView;
+import com.lexandroid.movieapp.adapters.OnMovieListener;
 import com.lexandroid.movieapp.models.MovieModel;
-import com.lexandroid.movieapp.request.Service;
-import com.lexandroid.movieapp.response.MovieSearchResponse;
-import com.lexandroid.movieapp.utils.Credentials;
-import com.lexandroid.movieapp.utils.MovieApi;
 import com.lexandroid.movieapp.viewmodels.MovieListViewModel;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class MainActivity extends AppCompatActivity {
+public class MovieSearchActivity extends AppCompatActivity implements OnMovieListener {
 
     //Before we run our app, we need to add the Network Security config
 
+    //Button btn;
 
-    Button btn;
+    // ** RecyclerView
+    private RecyclerView recyclerView;
+    private MovieRecyclerView movieRecyclerViewAdapter;
+
 
     //ViewModel
     private MovieListViewModel movieListViewModel;
+    private LinearLayoutManager HorizontalLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btn = findViewById(R.id.button);
+        //Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        //SearchView
+        SetupSearchView();
+
+
+
+
+        recyclerView = findViewById(R.id.movieRecyclerView1);
+
+
+        //btn = findViewById(R.id.button);
 
         movieListViewModel = new ViewModelProvider(this).get(MovieListViewModel.class);
 
         //Calling the observers
+        ConfigureRecyclerView();
         observeAnyChange();
+        SetupSearchView();
 
         //Testing the searchMovieApiMethod
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                //Displaying only the results of page 1
+//                searchMovieApi("Fast", 1);
+//            }
+//        });
 
-                //Displaying only the results of page 1
-                searchMovieApi("Fast", 1);
+
+
+
+    }
+
+    //Getting data from searchview & query the api to get the results (Movies)
+    private void SetupSearchView() {
+        final SearchView searchView = findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                movieListViewModel.searchMovieApi(s, 1);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+    }
+
+//    // 4 - Calling Method in Main Activity
+//    private void searchMovieApi(String query, int page) {
+//        movieListViewModel.searchMovieApi(query, page);
+//    }
+
+    // ** 5 - Initializing recyclerView & adding data
+    private void ConfigureRecyclerView() {
+        movieRecyclerViewAdapter = new MovieRecyclerView(this);
+
+        recyclerView.setAdapter(movieRecyclerViewAdapter);
+
+        HorizontalLayout
+                = new LinearLayoutManager(
+                MovieSearchActivity.this,
+                LinearLayoutManager.HORIZONTAL,
+                false);
+        //recyclerView.setLayoutManager(HorizontalLayout);  //use this instead of below to create longer views like netflix
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+
+
+        // RecyclerView Pagination
+        //Loading next pages of results
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                if(!recyclerView.canScrollVertically(1)) {
+                    //Here we need to display next search results
+                    movieListViewModel.searchNextPage();
+                }
             }
         });
 
 
     }
 
-    // 4 - Calling Method in Main Activity
-    private void searchMovieApi(String query, int page) {
-        movieListViewModel.searchMovieApi(query, page);
-    }
 
 //    private void getRetrofitResponse() {
 //        Log.v("Debug", "Able to start getRetrofitResponse");
@@ -153,12 +221,31 @@ public class MainActivity extends AppCompatActivity {
                     for(MovieModel movieModel: movieModels) {
                         //Get the data in log
                         Log.v("Tag", "onChanges: " + movieModel.getOriginal_title());
+
+                        movieRecyclerViewAdapter.setmMovies(movieModels);
                     }
                 }
             }
         });
     }
 
+    @Override
+    public void onMovieClick(int position) {
+        //Toast.makeText(this, "Position: " + position, Toast.LENGTH_SHORT).show();
+
+        //We need the ID of the movie in order to get its details
+        Intent intent = new Intent(this, MovieDetails.class);
+        intent.putExtra("movie", movieRecyclerViewAdapter.getSelected(position));
+        startActivity(intent);
+    }
+
+    @Override
+    public void onCategoryClick(String category) {
+
+    }
+
+
+    //Navigation
 }
 
 // https://api.themoviedb.org/3/movie/343611?api_key={api_key}

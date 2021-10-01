@@ -15,6 +15,10 @@ public class MovieRepository {
 
     private MovieApiClient movieApiClient;
 
+    //These two are for getting next pages in a search
+    private String mQuery;
+    private int mPageNumber;
+
     public static MovieRepository getInstance(){
         if(instance == null) {
             instance = new MovieRepository();
@@ -32,7 +36,14 @@ public class MovieRepository {
 
     //2 - calling the method in repository
     public void searchMovieApi(String query, int page) {
+        mQuery = query;
+        mPageNumber = page;
+
         movieApiClient.searchMoviesApi(query, page);
+    }
+
+    public void searchNextPage() {
+        searchMovieApi(mQuery, mPageNumber + 1);
     }
 
 

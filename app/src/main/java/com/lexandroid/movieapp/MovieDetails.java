@@ -1,0 +1,40 @@
+package com.lexandroid.movieapp;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
+
+import com.lexandroid.movieapp.models.MovieModel;
+
+public class MovieDetails extends AppCompatActivity {
+    //Widgets
+    private ImageView imageViewDetails;
+    private TextView titleDetails, descriptionDetails;
+    private RatingBar ratingBarDetails;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_movie_details);
+
+        imageViewDetails = findViewById(R.id.imageView_details);
+        titleDetails = findViewById(R.id.title_bold);
+        descriptionDetails = findViewById(R.id.movie_desc);
+        ratingBarDetails = findViewById(R.id.movie_rating_bar);
+
+        GetDataFromIntent();
+
+    }
+
+    private void GetDataFromIntent() {
+        if (getIntent().hasExtra("movie")) {
+            MovieModel movieModel = getIntent().getParcelableExtra("movie");
+            Log.v("Tagy", "incoming intent" + movieModel.getMovie_id());
+        }
+    }
+}

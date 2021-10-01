@@ -3,8 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/layout/activity_main.xml" value="0.540625" />
+        <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/layout/activity_main.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/layout/activity_movie_details.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/layout/activity_search.xml" value="0.5546875" />
         <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/layout/movie_list_item.xml" value="0.3171875" />
+        <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/layout/search_activity.xml" value="0.5546875" />
+        <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.5546875" />
         <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/xml/network_security_config.xml" value="0.29739583333333336" />
       </map>
     </option>

@@ -30,4 +30,8 @@ public class MovieListViewModel extends ViewModel {
         movieRepository.searchMovieApi(query, page);
     }
 
+    public void searchNextPage() {
+        movieRepository.searchNextPage();
+    }
+
 }

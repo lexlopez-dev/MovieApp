@@ -1,6 +1,7 @@
 package com.lexandroid.movieapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -148,25 +149,37 @@ public class SearchActivity extends AppCompatActivity implements OnSearchListene
         });
     }
 
-    //Clicked MovieModel
-    //MovieModel clickedMovie;
 
     @Override
     public void onSearchClick(int position) {
         //Getting the ID of the clicked movie and sending it to movielistviewmodel
         Log.d("Debug", "Sending this id to search: " + searchRecyclerViewAdapter.getSelected(position).getId());
-        getRetrofitResponseAccordingToID(searchRecyclerViewAdapter.getSelected(position).getId());
-        //We need the ID of the movie in order to get its details
         Intent intent = new Intent(this, MovieDetails.class);
-        //intent.putExtra("movie", searchRecyclerViewAdapter.getSelected(position));
-        Log.d("Debug", clickedMovie.getOriginal_title());
-        intent.putExtra("movie", (Parcelable) clickedMovie);
-        //startActivity(intent);
+        getRetrofitResponseAccordingToID(searchRecyclerViewAdapter.getSelected(position).getId(), new GetRetrofitResponseAccordingToID() {
+            @Override
+            public void onSuccess(@NonNull MovieModel movieModel) {
+                intent.putExtra("movie", (Parcelable) movieModel);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable throwable) {
+                Log.d("Debug", "Error: Throwable = " + throwable);
+            }
+        });
 
         //TODO: Need to adjust this method to check whether a movie or a tv show was clicked, and send to a TvDetails.class as needed
     }
 
-    private void getRetrofitResponseAccordingToID(int id) {
+
+    public interface GetRetrofitResponseAccordingToID {
+        void onSuccess(@NonNull MovieModel movieModel);
+
+        void onError(@NonNull Throwable throwable);
+
+    }
+
+    private void getRetrofitResponseAccordingToID(int id, @Nullable GetRetrofitResponseAccordingToID callbacks) {
         Log.v("Debug", "Able to start getRetrofitResponseAccordingToID");
 
         TmdbApi tmdbApi = Service.getTmdbApi();
@@ -182,9 +195,12 @@ public class SearchActivity extends AppCompatActivity implements OnSearchListene
         responseCall.enqueue(new Callback<MovieModel>() {
             @Override
             public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {
+
+
                 if (response.code() == 200) {
-                    MovieModel clickedMovie = response.body();
-                    Log.v("Debug", "The Response:" + clickedMovie.getOriginal_title());
+                    MovieModel clickedMovieResult = response.body(); //TODO: Complete this
+                    callbacks.onSuccess(clickedMovieResult);
+                    Log.v("Debug", "The Response:" + clickedMovieResult.getOriginal_title());
                 } else {
                     try {
                         Log.v("Debug", "Error: " + response.errorBody().string());
@@ -204,46 +220,6 @@ public class SearchActivity extends AppCompatActivity implements OnSearchListene
 
     }
 
-    public void getMovieById(int id) {
-        Log.d("Debug", "Made it inside getMovieById");
-        movieListViewModel.searchMovieApi(id);
-    }
-
-    //
-//    private void getRetrofitResponseAccordingToID() {
-//        Log.v("Debug", "Able to start getRetrofitResponseAccordingToID");
-//
-//        MovieApi movieApi = Service.getMovieApi();
-//
-//        Call<MovieModel> responseCall = movieApi
-//                .getMovie(
-//                        550,
-//                        Credentials.API_KEY
-//                );
-//
-//        Log.v("Debug", "Able to get response call from movieApi.getMovie");
-//
-//        responseCall.enqueue(new Callback<MovieModel>() {
-//            @Override
-//            public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {
-//                if(response.code() == 200) {
-//                    MovieModel movie = response.body();
-//                    Log.v("Tag", "The Response: " + movie.getOriginal_title());
-//                } else {
-//                    try {
-//                        Log.v("Tag", "Error: " + response.errorBody().string());
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<MovieModel> call, Throwable t) {
-//
-//            }
-//        });
-//    }
 
     @Override
     public void onCategoryClick(String category) {

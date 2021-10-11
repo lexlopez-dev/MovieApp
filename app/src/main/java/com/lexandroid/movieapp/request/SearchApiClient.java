@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.lexandroid.movieapp.AppExecutors;
 import com.lexandroid.movieapp.models.MovieModel;
+import com.lexandroid.movieapp.models.SearchModel;
+import com.lexandroid.movieapp.response.AllSearchResponse;
 import com.lexandroid.movieapp.response.MovieResponse;
 import com.lexandroid.movieapp.response.MovieSearchResponse;
 import com.lexandroid.movieapp.utils.Credentials;
@@ -20,45 +22,45 @@ import java.util.concurrent.TimeUnit;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class MovieApiClient {
+public class SearchApiClient {
 
     //LiveData
-    private MutableLiveData<MovieModel> mMovies;
+    private MutableLiveData<List<SearchModel>> mResults;
 
-    private static MovieApiClient instance;
+    private static SearchApiClient instance;
 
 
     //Making Global RUNNABLE qequest
-    private RetrieveMovieRunnable retrieveMovieRunnable;
+    private RetrieveSearchesRunnable retrieveSearchesRunnable;
 
 
 
-    public static MovieApiClient getInstance() {
+    public static SearchApiClient getInstance() {
         if(instance == null) {
-            instance = new MovieApiClient();
+            instance = new SearchApiClient();
         }
         return instance;
     }
 
-    private MovieApiClient() {
-        mMovies = new MutableLiveData<>();
+    private SearchApiClient() {
+        mResults = new MutableLiveData<>();
     }
 
-    public LiveData<MovieModel> getMovies() {
-        return mMovies;
+    public LiveData<List<SearchModel>> getResults() {
+        return mResults;
     }
 
 
     // 1 - This method that we are going to call through the classes
-    public void searchMovieApi(int id) {
-        Log.d("Debug", "Made it inside searchMovieApi inside MovieApiClient");
-        if(retrieveMovieRunnable != null) {
-            retrieveMovieRunnable = null;
+    public void searchAllApi(String query, int page) {
+
+        if(retrieveSearchesRunnable != null) {
+            retrieveSearchesRunnable = null;
         }
 
-       retrieveMovieRunnable = new RetrieveMovieRunnable(id);
-        Log.d("Debug", "Made it past RetrieveMovieRunnable inside MovieApiClient");
-        final Future myHandler = AppExecutors.getInstance().networkIO().submit(retrieveMovieRunnable);
+        retrieveSearchesRunnable = new RetrieveSearchesRunnable(query, page);
+
+        final Future myHandler = AppExecutors.getInstance().networkIO().submit(retrieveSearchesRunnable);
 
         AppExecutors.getInstance().networkIO().schedule(new Runnable() {
             @Override
@@ -71,13 +73,15 @@ public class MovieApiClient {
 
     //Retrieving data from rest api
     //We have 2 types of Queries
-    private class RetrieveMovieRunnable implements Runnable {
+    private class RetrieveSearchesRunnable implements Runnable {
 
-        private int id;
+        private String query;
+        private int page;
         boolean cancelRequest;
 
-        public RetrieveMovieRunnable(int id) {
-            this.id = id;
+        public RetrieveSearchesRunnable(String query, int page) {
+            this.query = query;
+            this.page = page;
             cancelRequest = false;
         }
 
@@ -85,38 +89,45 @@ public class MovieApiClient {
         public void run() {
             //Getting the response objects
             try {
-                Response response = getSpecificMovie(id).execute();
+                Response response = getResults(query, page).execute();
                 if (cancelRequest) {
                     return;
                 }
                 if(response.code() == 200) {
-                    MovieModel movieFound = ((MovieResponse)response.body()).getMovie();
+                    List<SearchModel> list = new ArrayList<>(((AllSearchResponse)response.body()).getResults());
+                    if (page == 1) {
                         // Sending data to live data
                         // PostValue: used for background thread
                         //setValue: not for background threat
-                        mMovies.postValue(movieFound);
-
+                        mResults.postValue(list);
+                    }else {
+                        List<SearchModel> currentResults = mResults.getValue();
+                        currentResults.addAll(list);
+                        mResults.postValue(currentResults);
+                    }
                 }else {
                     String error = response.errorBody().string();
                     Log.v("Tag", "Error: " + error);
-                    mMovies.postValue(null);
+                    mResults.postValue(null);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                mMovies.postValue(null);
+                mResults.postValue(null);
             }
 
         }
 
         //Search method/query
-        private Call<MovieSearchResponse> getMovies(String query, int page) {
-                return Service.getTmdbApi().searchForMovies(
+        private Call<AllSearchResponse> getResults(String query, int page) {
+                return Service.getTmdbApi().searchForAll(
                         Credentials.API_KEY,
                         query,
                         page
                 );
         }
 
+
+        // LEAVE BELOW FOR GETTING SPECIFIC MOVIES
         private Call<MovieResponse> getSpecificMovie(int movieId) {
             return Service.getTmdbApi().getSpecificMovie(
                     movieId,

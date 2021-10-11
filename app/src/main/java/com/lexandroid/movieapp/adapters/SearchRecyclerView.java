@@ -1,6 +1,5 @@
 package com.lexandroid.movieapp.adapters;
 
-import android.graphics.Movie;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,24 +11,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.lexandroid.movieapp.R;
 import com.lexandroid.movieapp.models.MovieModel;
+import com.lexandroid.movieapp.models.SearchModel;
 import com.lexandroid.movieapp.utils.Credentials;
 
 import java.util.List;
 
-public class MovieRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class SearchRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<MovieModel> mMovies;
-    private OnMovieListener onMovieListener;
+    private List<SearchModel> mResults;
+    private OnSearchListener onSearchListener;
 
-    public MovieRecyclerView(OnMovieListener onMovieListener) {
-        this.onMovieListener = onMovieListener;
+    public SearchRecyclerView(OnSearchListener onSearchListener) {
+        this.onSearchListener = onSearchListener;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_list_item, parent,false);
-        return new MovieViewHolder(view, onMovieListener);
+        return new SearchViewHolder(view, onSearchListener);
     }
 
     @Override
@@ -41,30 +41,30 @@ public class MovieRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHol
         // ** ImageView: Using Glide library **
         Glide.with(holder.itemView.getContext())
                 .asBitmap()
-                .load(Credentials.IMG_URL + mMovies.get(position).getPoster_path())
-                .into(((MovieViewHolder)holder).imageView);
+                .load(Credentials.IMG_URL + mResults.get(position).getPoster_path())
+                .into(((SearchViewHolder)holder).imageView);
     }
 
     @Override
     public int getItemCount() {
-        if(mMovies != null) {
-            return mMovies.size();
+        if(mResults != null) {
+            return mResults.size();
         }
         return 0;
     }
 
-    public void setmMovies(List<MovieModel> mMovies) {
-        this.mMovies = mMovies;
+    public void setmResults(List<SearchModel> mResults) {
+        this.mResults = mResults;
         notifyDataSetChanged();
     }
 
     //Getting the id of the movie clicked
-    public MovieModel getSelected(int position) {
-        if(mMovies != null) {
-            if(mMovies.size() > 0) {
-                Log.v("Debug", "Integer ID of movie clicked --> " + mMovies.get(position));
-                Log.v("Debug", "Integer ID of movie clicked --> " + mMovies.get(position).getMedia_type());
-                return mMovies.get(position);
+    public SearchModel getSelected(int position) {
+        if(mResults != null) {
+            if(mResults.size() > 0) {
+                Log.v("Debug", "Integer ID of search clicked --> " + mResults.get(position).getId());
+                Log.v("Debug", "Media Type of clicked --> " + mResults.get(position).getMedia_type());
+                return mResults.get(position);
             }
         }
         return null;

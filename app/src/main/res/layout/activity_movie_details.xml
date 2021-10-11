@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/imageView_details"
         android:layout_width="match_parent"
-        android:layout_height="246dp"
+        android:layout_height="300dp"
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,15 +26,19 @@
         android:textColor="@color/white"
         android:textSize="27sp"
         android:textStyle="bold"
+        android:paddingRight="15dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_details" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView_details"
+        android:maxWidth="384dp"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
+        app:layout_constraintGuide_begin="28dp" />
 
     <Button
         android:id="@+id/button"
@@ -58,7 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="395dp" />
+        app:layout_constraintGuide_begin="384dp" />
 
     <TextView
         android:id="@+id/movie_desc"
@@ -67,7 +71,7 @@
         android:layout_marginTop="16dp"
         android:ellipsize="end"
         android:maxLines="4"
-        android:paddingRight="25dp"
+        android:paddingRight="30dp"
         android:text="TextView"
         android:textColor="@color/white"
         android:textSize="14sp"
@@ -75,19 +79,107 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        android:maxWidth="384dp"/>
 
     <RatingBar
         android:id="@+id/movie_rating_bar"
         style="@style/Widget.AppCompat.RatingBar.Small"
-        android:layout_width="87dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="20dp"
-        android:padding="4dp"
-        android:outlineAmbientShadowColor="@color/white"
-        android:numStars="5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:padding="0dp"
+        android:progressBackgroundTint="#EBD6D4D4"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/movie_desc" />
+
+    <TextView
+        android:id="@+id/movie_rating_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textSize="12sp"
+        android:textColor="#EBD6D4D4"
+        app:layout_constraintStart_toEndOf="@+id/movie_rating_bar"
+        app:layout_constraintTop_toBottomOf="@+id/movie_desc" />
+
+
+
+
+
+    <TextView
+        android:id="@+id/tmdb_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="TMDb"
+        android:textColor="#EBD6D4D4"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/movie_rating_count"
+        app:layout_constraintTop_toBottomOf="@+id/movie_desc" />
+
+    <TextView
+        android:id="@+id/movie_rating_float"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textColor="#EBD6D4D4"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/tmdb_word"
+        app:layout_constraintTop_toBottomOf="@+id/movie_desc" />
+
+    <TextView
+        android:id="@+id/movie_genre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textColor="#EBD6D4D4"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/movie_rating_float"
+        app:layout_constraintTop_toBottomOf="@+id/movie_desc" />
+
+    <TextView
+        android:id="@+id/movie_release_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textColor="#EBD6D4D4"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/movie_rating_bar" />
+
+    <TextView
+        android:id="@+id/movie_runtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textColor="#EBD6D4D4"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/movie_release_year"
+        app:layout_constraintTop_toBottomOf="@+id/movie_rating_bar" />
+
+    <EditText
+        android:id="@+id/testNumber"
+        android:layout_width="181dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/movie_runtime" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

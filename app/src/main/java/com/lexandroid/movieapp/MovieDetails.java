@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -15,8 +16,11 @@ import com.lexandroid.movieapp.utils.Credentials;
 public class MovieDetails extends AppCompatActivity {
     //Widgets
     private ImageView imageViewDetails;
-    private TextView titleDetails, descriptionDetails;
+    private TextView titleDetails, descriptionDetails, movieRatingCount;
     private RatingBar ratingBarDetails;
+
+
+
 
 
     @Override
@@ -27,9 +31,14 @@ public class MovieDetails extends AppCompatActivity {
         imageViewDetails = findViewById(R.id.imageView_details);
         titleDetails = findViewById(R.id.title_bold);
         descriptionDetails = findViewById(R.id.movie_desc);
-        ratingBarDetails = findViewById(R.id.movie_rating_bar);
+        ratingBarDetails = (RatingBar) findViewById(R.id.movie_rating_bar);
+        movieRatingCount = findViewById(R.id.movie_rating_count);
+
+
 
         GetDataFromIntent();
+
+        Log.v("Tagy", "Passed movieDetails onCreate");
 
     }
 
@@ -40,11 +49,20 @@ public class MovieDetails extends AppCompatActivity {
 
             titleDetails.setText(movieModel.getOriginal_title());
             descriptionDetails.setText(movieModel.getOverview());
-            ratingBarDetails.setRating(movieModel.getVote_average());
+            ratingBarDetails.setNumStars(5);
+            ratingBarDetails.setRating(movieModel.getVote_average() / 2);
+
+            Log.v("Tagy", "Int Votes: " + movieModel.getVote_count());
+            movieRatingCount.setText(String.valueOf(movieModel.getVote_count()));
+            Log.v("Tagy", "Runtime " + movieModel.getRuntime());
+            Log.v("Tagy", "Date: " + movieModel.getRelease_date());
+            Log.v("Tagy", "Rating Average: " + movieModel.getVote_average());
 
             Glide.with(this)
-                    .load(Credentials.IMG_URL + movieModel.getBackdrop_path())
+                    .load(Credentials.IMG_URL + movieModel.getPoster_path())
                     .into(imageViewDetails);
         }
     }
+
+
 }

@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MovieSearchActivity">
+    tools:context=".SearchActivity"
+    android:background="@drawable/ic_gradient_background"
+    >
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/searchToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
@@ -15,13 +17,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_scrollFlags="scroll|enterAlways"
         android:theme="@style/ThemeOverlay.AppCompat.Light"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        >
 
         <androidx.appcompat.widget.SearchView
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:id="@+id/search_view"
-            app:queryHint="Search"/>
+            android:id="@+id/all_search_view"
+            app:queryHint="Search"
+            android:textColorHint="@color/white"
+            />
 
 
     </androidx.appcompat.widget.Toolbar>
@@ -37,8 +42,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/movieRecyclerView1"
-
+        android:id="@+id/searchRecyclerView"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
@@ -51,7 +55,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/searchToolbar"
         app:layout_constraintVertical_bias="0.0" />
 
 

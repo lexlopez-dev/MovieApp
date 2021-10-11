@@ -1,5 +1,9 @@
 package com.lexandroid.movieapp;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -10,23 +14,16 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
-
 import com.lexandroid.movieapp.adapters.MovieRecyclerView;
 import com.lexandroid.movieapp.adapters.OnMovieListener;
 import com.lexandroid.movieapp.models.MovieModel;
 import com.lexandroid.movieapp.viewmodels.MovieListViewModel;
 
 import java.util.List;
-
-public class MovieSearchActivity extends AppCompatActivity implements OnMovieListener {
+//TODO: THIS CLASS IS A COPY OF MOVIESEARCHACTIVITY BEFORE ANY CHANGES, THIS WILL BE USED LATER ON AS MAIN HOME PAGE
+public class MainPageActivity extends AppCompatActivity implements OnMovieListener {
 
     //Before we run our app, we need to add the Network Security config
-
-    //Button btn;
 
     // ** RecyclerView
     private RecyclerView recyclerView;
@@ -40,29 +37,20 @@ public class MovieSearchActivity extends AppCompatActivity implements OnMovieLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_page);
 
         //Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //SearchView
-        SetupSearchView();
-
-
-
-
         recyclerView = findViewById(R.id.movieRecyclerView1);
-
-
-        //btn = findViewById(R.id.button);
 
         movieListViewModel = new ViewModelProvider(this).get(MovieListViewModel.class);
 
         //Calling the observers
         ConfigureRecyclerView();
-        observeAnyChange();
-        SetupSearchView();
+        //observeAnyChange();
+        //SetupSearchView();
 
         //Testing the searchMovieApiMethod
 //        btn.setOnClickListener(new View.OnClickListener() {
@@ -73,28 +61,25 @@ public class MovieSearchActivity extends AppCompatActivity implements OnMovieLis
 //                searchMovieApi("Fast", 1);
 //            }
 //        });
-
-
-
-
     }
 
     //Getting data from searchview & query the api to get the results (Movies)
-    private void SetupSearchView() {
-        final SearchView searchView = findViewById(R.id.search_view);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                movieListViewModel.searchMovieApi(s, 1);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
-            }
-        });
-    }
+//    private void SetupSearchView() {
+//        final SearchView searchView = findViewById(R.id.search_view);
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String s) {
+//                //This should call a viewModel for not only movies, but tv as well
+//                movieListViewModel.searchMovieApi(s, 1);
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String s) {
+//                return false;
+//            } //TODO: eventually set upQueryTextChange
+//        });
+//    }
 
 //    // 4 - Calling Method in Main Activity
 //    private void searchMovieApi(String query, int page) {
@@ -109,7 +94,7 @@ public class MovieSearchActivity extends AppCompatActivity implements OnMovieLis
 
         HorizontalLayout
                 = new LinearLayoutManager(
-                MovieSearchActivity.this,
+                MainPageActivity.this,
                 LinearLayoutManager.HORIZONTAL,
                 false);
         //recyclerView.setLayoutManager(HorizontalLayout);  //use this instead of below to create longer views like netflix
@@ -118,15 +103,15 @@ public class MovieSearchActivity extends AppCompatActivity implements OnMovieLis
 
         // RecyclerView Pagination
         //Loading next pages of results
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                if(!recyclerView.canScrollVertically(1)) {
-                    //Here we need to display next search results
-                    movieListViewModel.searchNextPage();
-                }
-            }
-        });
+//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+//                if(!recyclerView.canScrollVertically(1)) {
+//                    //Here we need to display next search results
+//                    movieListViewModel.searchNextPage();
+//                }
+//            }
+//        });
 
 
     }
@@ -212,22 +197,6 @@ public class MovieSearchActivity extends AppCompatActivity implements OnMovieLis
 //    }
 
     // Observing any changes in the data
-    private void observeAnyChange() {
-        movieListViewModel.getMovies().observe(this, new Observer<List<MovieModel>>() {
-            @Override
-            public void onChanged(List<MovieModel> movieModels) {
-                // Observing for any data change
-                if(movieModels != null) {
-                    for(MovieModel movieModel: movieModels) {
-                        //Get the data in log
-                        Log.v("Tag", "onChanges: " + movieModel.getOriginal_title());
-
-                        movieRecyclerViewAdapter.setmMovies(movieModels);
-                    }
-                }
-            }
-        });
-    }
 
     @Override
     public void onMovieClick(int position) {
@@ -237,6 +206,8 @@ public class MovieSearchActivity extends AppCompatActivity implements OnMovieLis
         Intent intent = new Intent(this, MovieDetails.class);
         intent.putExtra("movie", movieRecyclerViewAdapter.getSelected(position));
         startActivity(intent);
+
+        //TODO: Need to adjust this method to check whether a movie or a tv show was clicked, and send to a TvDetails.class as needed
     }
 
     @Override

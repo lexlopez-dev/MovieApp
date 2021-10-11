@@ -1,5 +1,7 @@
 package com.lexandroid.movieapp.viewmodels;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -20,18 +22,19 @@ public class MovieListViewModel extends ViewModel {
         movieRepository = MovieRepository.getInstance();
     }
 
-    public LiveData<List<MovieModel>> getMovies() {
+    public LiveData<MovieModel> getMovies() {
         return movieRepository.getMovies();
     }
 
 
     // 3 - Calling method in viewmodel
-    public void searchMovieApi(String query, int page) {
-        movieRepository.searchMovieApi(query, page);
+    public void searchMovieApi(int id) {
+        Log.d("Debug", "Made it inside searchMovieApi inside of MovieListViewModel");
+        movieRepository.searchMovieApi(id);
     }
 
-    public void searchNextPage() {
-        movieRepository.searchNextPage();
-    }
+//    public void searchNextPage() {
+//        movieRepository.searchNextPage();
+//    }
 
 }

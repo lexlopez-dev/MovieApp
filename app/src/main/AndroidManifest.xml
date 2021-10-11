@@ -16,7 +16,7 @@
             android:name=".MovieDetails"
             android:exported="true" />
         <activity
-            android:name=".MovieSearchActivity"
+            android:name=".SearchActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

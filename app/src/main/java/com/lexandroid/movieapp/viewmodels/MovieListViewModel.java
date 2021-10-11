@@ -19,6 +19,7 @@ public class MovieListViewModel extends ViewModel {
 
     //Constructor
     public MovieListViewModel() {
+        Log.d("Debug", "New MovieListViewModel contructed");
         movieRepository = MovieRepository.getInstance();
     }
 

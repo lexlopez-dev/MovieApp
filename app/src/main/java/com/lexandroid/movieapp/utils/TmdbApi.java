@@ -32,7 +32,7 @@ public interface TmdbApi {
     // https://api.themoviedb.org/3/movie/343611?api_key={api_key}
     // Remember that movie_id = 550 is for Jack Reacher movie
     @GET(Credentials.BASE_URL + "movie/{movie_id}?")
-    Call<MovieResponse> getSpecificMovie(
+    Call<MovieModel> getSpecificMovie(
             @Path("movie_id") int movie_id,
             @Query("api_key") String api_key
     );

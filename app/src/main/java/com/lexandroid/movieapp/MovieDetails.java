@@ -11,7 +11,18 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.lexandroid.movieapp.models.MovieModel;
+import com.lexandroid.movieapp.request.MovieApiClient;
+import com.lexandroid.movieapp.request.Service;
+import com.lexandroid.movieapp.response.MovieResponse;
 import com.lexandroid.movieapp.utils.Credentials;
+import com.lexandroid.movieapp.utils.TmdbApi;
+import com.lexandroid.movieapp.viewmodels.MovieListViewModel;
+
+import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MovieDetails extends AppCompatActivity {
     //Widgets
@@ -19,9 +30,9 @@ public class MovieDetails extends AppCompatActivity {
     private TextView titleDetails, descriptionDetails, movieRatingCount;
     private RatingBar ratingBarDetails;
 
+    MovieListViewModel movieListViewModel;
 
-
-
+    MovieApiClient movieApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +45,6 @@ public class MovieDetails extends AppCompatActivity {
         ratingBarDetails = (RatingBar) findViewById(R.id.movie_rating_bar);
         movieRatingCount = findViewById(R.id.movie_rating_count);
 
-
-
         GetDataFromIntent();
 
         Log.v("Tagy", "Passed movieDetails onCreate");
@@ -44,8 +53,9 @@ public class MovieDetails extends AppCompatActivity {
 
     private void GetDataFromIntent() {
         if (getIntent().hasExtra("movie")) {
+            Log.d("Debug", "Getting data from intent!");
             MovieModel movieModel = getIntent().getParcelableExtra("movie");
-            Log.v("Tagy", "incoming intent" + movieModel.getMovie_id());
+            Log.v("Debug", "incoming intent" + movieModel.getMovie_id());
 
             titleDetails.setText(movieModel.getOriginal_title());
             descriptionDetails.setText(movieModel.getOverview());
@@ -63,6 +73,5 @@ public class MovieDetails extends AppCompatActivity {
                     .into(imageViewDetails);
         }
     }
-
 
 }

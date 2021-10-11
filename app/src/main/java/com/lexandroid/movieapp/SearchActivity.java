@@ -12,16 +12,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 
-import com.lexandroid.movieapp.adapters.OnMovieListener;
 import com.lexandroid.movieapp.adapters.OnSearchListener;
 import com.lexandroid.movieapp.adapters.SearchRecyclerView;
+import com.lexandroid.movieapp.models.MovieModel;
 import com.lexandroid.movieapp.models.SearchModel;
+import com.lexandroid.movieapp.request.Service;
+import com.lexandroid.movieapp.utils.Credentials;
+import com.lexandroid.movieapp.utils.TmdbApi;
 import com.lexandroid.movieapp.viewmodels.MovieListViewModel;
 import com.lexandroid.movieapp.viewmodels.SearchListViewModel;
 
+import java.io.IOException;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SearchActivity extends AppCompatActivity implements OnSearchListener {
 
@@ -139,18 +148,60 @@ public class SearchActivity extends AppCompatActivity implements OnSearchListene
         });
     }
 
+    //Clicked MovieModel
+    //MovieModel clickedMovie;
+
     @Override
     public void onSearchClick(int position) {
         //Getting the ID of the clicked movie and sending it to movielistviewmodel
         Log.d("Debug", "Sending this id to search: " + searchRecyclerViewAdapter.getSelected(position).getId());
-        getMovieById(searchRecyclerViewAdapter.getSelected(position).getId());
-        Log.d("Debug", "Made it past getMovieById");
+        getRetrofitResponseAccordingToID(searchRecyclerViewAdapter.getSelected(position).getId());
         //We need the ID of the movie in order to get its details
         Intent intent = new Intent(this, MovieDetails.class);
-        intent.putExtra("movie", searchRecyclerViewAdapter.getSelected(position));
-        startActivity(intent);
+        //intent.putExtra("movie", searchRecyclerViewAdapter.getSelected(position));
+        Log.d("Debug", clickedMovie.getOriginal_title());
+        intent.putExtra("movie", (Parcelable) clickedMovie);
+        //startActivity(intent);
 
         //TODO: Need to adjust this method to check whether a movie or a tv show was clicked, and send to a TvDetails.class as needed
+    }
+
+    private void getRetrofitResponseAccordingToID(int id) {
+        Log.v("Debug", "Able to start getRetrofitResponseAccordingToID");
+
+        TmdbApi tmdbApi = Service.getTmdbApi();
+
+        Call<MovieModel> responseCall = tmdbApi
+                .getSpecificMovie(
+                        id,
+                        Credentials.API_KEY
+                );
+
+        Log.v("Debug", "Able to get response call from movieApi.getMovie");
+
+        responseCall.enqueue(new Callback<MovieModel>() {
+            @Override
+            public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {
+                if (response.code() == 200) {
+                    MovieModel clickedMovie = response.body();
+                    Log.v("Debug", "The Response:" + clickedMovie.getOriginal_title());
+                } else {
+                    try {
+                        Log.v("Debug", "Error: " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<MovieModel> call, Throwable t) {
+
+            }
+        });
+
+
     }
 
     public void getMovieById(int id) {

@@ -12,8 +12,6 @@ import com.lexandroid.movieapp.response.MovieSearchResponse;
 import com.lexandroid.movieapp.utils.Credentials;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
@@ -117,7 +115,7 @@ public class MovieApiClient {
                 );
         }
 
-        private Call<MovieResponse> getSpecificMovie(int movieId) {
+        private Call<MovieModel> getSpecificMovie(int movieId) {
             return Service.getTmdbApi().getSpecificMovie(
                     movieId,
                     Credentials.API_KEY

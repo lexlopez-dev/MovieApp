@@ -9,8 +9,6 @@ import com.lexandroid.movieapp.AppExecutors;
 import com.lexandroid.movieapp.models.MovieModel;
 import com.lexandroid.movieapp.models.SearchModel;
 import com.lexandroid.movieapp.response.AllSearchResponse;
-import com.lexandroid.movieapp.response.MovieResponse;
-import com.lexandroid.movieapp.response.MovieSearchResponse;
 import com.lexandroid.movieapp.utils.Credentials;
 
 import java.io.IOException;
@@ -128,7 +126,7 @@ public class SearchApiClient {
 
 
         // LEAVE BELOW FOR GETTING SPECIFIC MOVIES
-        private Call<MovieResponse> getSpecificMovie(int movieId) {
+        private Call<MovieModel> getSpecificMovie(int movieId) {
             return Service.getTmdbApi().getSpecificMovie(
                     movieId,
                     Credentials.API_KEY

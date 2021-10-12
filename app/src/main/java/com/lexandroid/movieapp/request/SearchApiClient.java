@@ -75,6 +75,7 @@ public class SearchApiClient {
 
         private String query;
         private int page;
+        boolean adults = false;
         boolean cancelRequest;
 
         public RetrieveSearchesRunnable(String query, int page) {
@@ -120,7 +121,8 @@ public class SearchApiClient {
                 return Service.getTmdbApi().searchForAll(
                         Credentials.API_KEY,
                         query,
-                        page
+                        page,
+                        adults
                 );
         }
 

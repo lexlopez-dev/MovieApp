@@ -3,6 +3,11 @@ package com.lexandroid.movieapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class MovieModel implements Parcelable {
     /*Model Class for our movies
     This grabs results from a movie and saves it to this class
@@ -18,11 +23,13 @@ public class MovieModel implements Parcelable {
     private float vote_average;
     private int vote_count;
     private int runtime;
+    private String tagline;
 
     private String media_type;
+    private String homepage;
 
     //Constructor
-    public MovieModel(int movie_id, String original_title, String poster_path, String release_date, String backdrop_path, int[] genre_ids, String overview, float vote_average, int vote_count, int runtime, String media_type) {
+    public MovieModel(int movie_id, String original_title, String poster_path, String release_date, String backdrop_path, int[] genre_ids, String overview, float vote_average, int vote_count, int runtime, String media_type, String tagline, String homepage) {
         this.movie_id = movie_id;
         this.original_title = original_title;
         this.poster_path = poster_path;
@@ -35,6 +42,8 @@ public class MovieModel implements Parcelable {
         this.runtime = runtime;
 
         this.media_type = media_type;
+        this.tagline = tagline;
+        this.homepage = homepage;
     }
 
 
@@ -52,6 +61,8 @@ public class MovieModel implements Parcelable {
         runtime = in.readInt();
 
         media_type = in.readString();
+        tagline = in.readString();
+        homepage = in.readString();
     }
 
     public static final Creator<MovieModel> CREATOR = new Creator<MovieModel>() {
@@ -84,6 +95,13 @@ public class MovieModel implements Parcelable {
         return release_date;
     }
 
+    public String getRelease_year() throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy", Locale.ENGLISH);
+        Date year = formatter.parse(getRelease_date());
+        String formattedYear = formatter.format(year);
+        return formattedYear;
+    }
+
     public String getBackdrop_path() {
         return backdrop_path;
     }
@@ -104,12 +122,25 @@ public class MovieModel implements Parcelable {
         return vote_count;
     }
 
-    public int getRuntime() {
-        return runtime;
+    public String getRuntime() {
+
+        int hours = runtime / 60; //since both are ints, you get an int
+        int minutes = runtime % 60;
+        String time = String.valueOf(hours) + " h " + String.valueOf(minutes) + " min";
+        //System.out.printf("%d:%02d", hours, minutes);
+        return time;
     }
 
     public String getMedia_type() {
         return media_type;
+    }
+
+    public String getTagline() {
+        return tagline;
+    }
+
+    public String getHomepage() {
+        return homepage;
     }
 
     //////////////////////////////////////////////////////////////
@@ -132,5 +163,7 @@ public class MovieModel implements Parcelable {
         parcel.writeInt(vote_count);
         parcel.writeInt(runtime);
         parcel.writeString(media_type);
+        parcel.writeString(tagline);
+        parcel.writeString(homepage);
     }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -19,6 +20,9 @@ import com.lexandroid.movieapp.utils.TmdbApi;
 import com.lexandroid.movieapp.viewmodels.MovieListViewModel;
 
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Arrays;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,12 +31,9 @@ import retrofit2.Response;
 public class MovieDetails extends AppCompatActivity {
     //Widgets
     private ImageView imageViewDetails;
-    private TextView titleDetails, descriptionDetails, movieRatingCount;
+    private TextView titleDetails, descriptionDetails, movieRatingCount, movieRatingFloat, movieGenre, movieReleaseYear, movieRuntime;
     private RatingBar ratingBarDetails;
 
-    MovieListViewModel movieListViewModel;
-
-    MovieApiClient movieApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,29 +45,37 @@ public class MovieDetails extends AppCompatActivity {
         descriptionDetails = findViewById(R.id.movie_desc);
         ratingBarDetails = (RatingBar) findViewById(R.id.movie_rating_bar);
         movieRatingCount = findViewById(R.id.movie_rating_count);
+        movieRatingFloat = findViewById(R.id.movie_rating_float);
+        movieGenre = findViewById(R.id.movie_genre);
+        movieReleaseYear = findViewById(R.id.movie_release_year);
+        movieRuntime = findViewById(R.id.movie_runtime);
 
-        GetDataFromIntent();
+        try {
+            GetDataFromIntent();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-        Log.v("Tagy", "Passed movieDetails onCreate");
 
     }
 
-    private void GetDataFromIntent() {
+    private void GetDataFromIntent() throws ParseException {
         if (getIntent().hasExtra("movie")) {
-            Log.d("Debug", "Getting data from intent!");
             MovieModel movieModel = getIntent().getParcelableExtra("movie");
-            Log.v("Debug", "incoming intent" + movieModel.getMovie_id());
 
             titleDetails.setText(movieModel.getOriginal_title());
             descriptionDetails.setText(movieModel.getOverview());
             ratingBarDetails.setNumStars(5);
             ratingBarDetails.setRating(movieModel.getVote_average() / 2);
 
-            Log.v("Tagy", "Int Votes: " + movieModel.getVote_count());
-            movieRatingCount.setText(String.valueOf(movieModel.getVote_count()));
-            Log.v("Tagy", "Runtime " + movieModel.getRuntime());
-            Log.v("Tagy", "Date: " + movieModel.getRelease_date());
-            Log.v("Tagy", "Rating Average: " + movieModel.getVote_average());
+            NumberFormat numberFormat = NumberFormat.getInstance();
+            movieRatingCount.setText(String.valueOf(numberFormat.format(movieModel.getVote_count())));
+            movieRatingFloat.setText(String.valueOf(movieModel.getVote_average()));
+            movieReleaseYear.setText(movieModel.getRelease_year());
+            movieRuntime.setText(movieModel.getRuntime());
+
+            movieGenre.setVisibility(View.GONE);
+
 
             Glide.with(this)
                     .load(Credentials.IMG_URL + movieModel.getPoster_path())

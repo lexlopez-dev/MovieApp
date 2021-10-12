@@ -170,16 +170,7 @@
         app:layout_constraintStart_toEndOf="@+id/movie_release_year"
         app:layout_constraintTop_toBottomOf="@+id/movie_rating_bar" />
 
-    <EditText
-        android:id="@+id/testNumber"
-        android:layout_width="181dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/movie_runtime" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,7 +25,8 @@ public interface TmdbApi {
     Call<AllSearchResponse> searchForAll(
             @Query("api_key") String api_key,
             @Query("query") String query,
-            @Query("page") int page
+            @Query("page") int page,
+            @Query("include_adult") boolean adult //setting false to not get adult stuff
     );
 
     // Getting a movie with a specific ID

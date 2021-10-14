@@ -9,12 +9,16 @@ public class SearchModel implements Parcelable {
     private String media_type;
     private String poster_path;
     private String profile_path;
+    private String name;
+    private String title;
 
-    public SearchModel(int id, String media_type, String poster_path, String profile_path) {
+    public SearchModel(int id, String media_type, String poster_path, String profile_path,String name, String title) {
         this.id = id;
         this.media_type = media_type;
         this.poster_path = poster_path;
         this.profile_path = profile_path;
+        this.name = name;
+        this.title = title;
     }
 
     protected SearchModel(Parcel in) {
@@ -22,6 +26,8 @@ public class SearchModel implements Parcelable {
         media_type = in.readString();
         poster_path = in.readString();
         profile_path = in.readString();
+        name = in.readString();
+        title = in.readString();
     }
 
     public static final Creator<SearchModel> CREATOR = new Creator<SearchModel>() {
@@ -52,6 +58,14 @@ public class SearchModel implements Parcelable {
         return profile_path;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -63,6 +77,8 @@ public class SearchModel implements Parcelable {
         parcel.writeString(media_type);
         parcel.writeString(poster_path);
         parcel.writeString(profile_path);
+        parcel.writeString(name);
+        parcel.writeString(title);
     }
 
 

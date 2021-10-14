@@ -41,23 +41,34 @@ public class SearchRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 //        ((MovieViewHolder)holder).title.setText(mMovies.get(position).getOriginal_title());
 //        ((MovieViewHolder)holder).category.setText(mMovies.get(position).ge());
-//        ((MovieViewHolder)holder).title.setText(mMovies.get(position).getOriginal_title());
+//       ((MovieViewHolder)holder).title.setText(mMovies.get(position).getOriginal_title());
 
 
         if(mResults.get(position).getMedia_type().equals("person")) {
-            Glide.with(holder.itemView.getContext())
-                    .asBitmap()
-                    .load(Credentials.IMG_URL + mResults.get(position).getProfile_path())
-                    .into(((SearchViewHolder)holder).imageView);
+            if(mResults.get(position).getProfile_path() == null) {
+                Glide.with(holder.itemView.getContext())
+                        .asBitmap()
+                        .load(R.drawable.noimagefound)
+                        .into(((SearchViewHolder)holder).imageView);
+            }else {
+                    Glide.with(holder.itemView.getContext())
+                            .asBitmap()
+                            .load(Credentials.IMG_URL + mResults.get(position).getProfile_path())
+                            .into(((SearchViewHolder) holder).imageView);
+            }
         }else {
-            Glide.with(holder.itemView.getContext())
-                    .asBitmap()
-                    .load(Credentials.IMG_URL + mResults.get(position).getPoster_path())
-                    .into(((SearchViewHolder)holder).imageView);
+            if(mResults.get(position).getPoster_path() == null) {
+                Glide.with(holder.itemView.getContext())
+                        .asBitmap()
+                        .load(R.drawable.noimagefound)
+                        .into(((SearchViewHolder)holder).imageView);
+            }else {
+                Glide.with(holder.itemView.getContext())
+                        .asBitmap()
+                        .load(Credentials.IMG_URL + mResults.get(position).getPoster_path())
+                        .into(((SearchViewHolder) holder).imageView);
+            }
         }
-
-
-
     }
 
 

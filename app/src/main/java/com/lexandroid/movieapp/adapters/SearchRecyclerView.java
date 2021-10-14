@@ -4,12 +4,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.lexandroid.movieapp.R;
+import com.lexandroid.movieapp.SearchActivity;
 import com.lexandroid.movieapp.models.MovieModel;
 import com.lexandroid.movieapp.models.SearchModel;
 import com.lexandroid.movieapp.utils.Credentials;
@@ -20,6 +23,8 @@ public class SearchRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private List<SearchModel> mResults;
     private OnSearchListener onSearchListener;
+
+    public LinearLayout.LayoutParams params;
 
     public SearchRecyclerView(OnSearchListener onSearchListener) {
         this.onSearchListener = onSearchListener;
@@ -38,12 +43,23 @@ public class SearchRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHo
 //        ((MovieViewHolder)holder).category.setText(mMovies.get(position).ge());
 //        ((MovieViewHolder)holder).title.setText(mMovies.get(position).getOriginal_title());
 
-        // ** ImageView: Using Glide library **
-        Glide.with(holder.itemView.getContext())
-                .asBitmap()
-                .load(Credentials.IMG_URL + mResults.get(position).getPoster_path())
-                .into(((SearchViewHolder)holder).imageView);
+
+        if(mResults.get(position).getMedia_type().equals("person")) {
+            Glide.with(holder.itemView.getContext())
+                    .asBitmap()
+                    .load(Credentials.IMG_URL + mResults.get(position).getProfile_path())
+                    .into(((SearchViewHolder)holder).imageView);
+        }else {
+            Glide.with(holder.itemView.getContext())
+                    .asBitmap()
+                    .load(Credentials.IMG_URL + mResults.get(position).getPoster_path())
+                    .into(((SearchViewHolder)holder).imageView);
+        }
+
+
+
     }
+
 
     @Override
     public int getItemCount() {
@@ -64,6 +80,7 @@ public class SearchRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHo
             if(mResults.size() > 0) {
                 Log.v("Debug", "Integer ID of search clicked --> " + mResults.get(position).getId());
                 Log.v("Debug", "Media Type of clicked --> " + mResults.get(position).getMedia_type());
+                Log.v("Debug", "Media Type of clicked --> " + position);
                 return mResults.get(position);
             }
         }

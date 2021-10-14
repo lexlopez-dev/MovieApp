@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.lexandroid.movieapp.adapters.OnSearchListener;
 import com.lexandroid.movieapp.adapters.SearchRecyclerView;
@@ -45,9 +46,6 @@ public class SearchActivity extends AppCompatActivity implements OnSearchListene
     //ViewModel
     private SearchListViewModel searchListViewModel;
     private LinearLayoutManager HorizontalLayout;
-
-    //ViewModel for clicking a movie
-    MovieListViewModel movieListViewModel;
 
 
     @Override
@@ -154,19 +152,26 @@ public class SearchActivity extends AppCompatActivity implements OnSearchListene
     public void onSearchClick(int position) {
         //Getting the ID of the clicked movie and sending it to movielistviewmodel
         Log.d("Debug", "Sending this id to search: " + searchRecyclerViewAdapter.getSelected(position).getId());
-        Intent intent = new Intent(this, MovieDetails.class);
-        getRetrofitResponseAccordingToID(searchRecyclerViewAdapter.getSelected(position).getId(), new GetRetrofitResponseAccordingToID() {
-            @Override
-            public void onSuccess(@NonNull MovieModel movieModel) {
-                intent.putExtra("movie", (Parcelable) movieModel);
-                startActivity(intent);
-            }
+        if(searchRecyclerViewAdapter.getSelected(position).getMedia_type().equals("movie")) {
+            Intent intent = new Intent(this, MovieDetails.class);
+            getRetrofitResponseAccordingToID(searchRecyclerViewAdapter.getSelected(position).getId(), new GetRetrofitResponseAccordingToID() {
+                @Override
+                public void onSuccess(@NonNull MovieModel movieModel) {
+                    intent.putExtra("movie", (Parcelable) movieModel);
+                    startActivity(intent);
+                }
 
-            @Override
-            public void onError(@NonNull Throwable throwable) {
-                Log.d("Debug", "Error: Throwable = " + throwable);
-            }
-        });
+                @Override
+                public void onError(@NonNull Throwable throwable) {
+                    Log.d("Debug", "Error: Throwable = " + throwable);
+                }
+            });
+        }else if(searchRecyclerViewAdapter.getSelected(position).getMedia_type().equals("tv")) {
+            Toast.makeText(this, "TV Activity Will Open", Toast.LENGTH_SHORT).show();
+        }else if(searchRecyclerViewAdapter.getSelected(position).getMedia_type().equals("person")){
+            Toast.makeText(this, "Person Activity Will Open", Toast.LENGTH_SHORT).show();
+        }
+
 
         //TODO: Need to adjust this method to check whether a movie or a tv show was clicked, and send to a TvDetails.class as needed
     }

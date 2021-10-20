@@ -27,38 +27,38 @@
         android:textSize="27sp"
         android:textStyle="bold"
         android:paddingRight="15dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintEnd_toStartOf="@+id/tv_guideline4"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/tv_guideline2"
         app:layout_constraintTop_toBottomOf="@+id/imageView_tv"
         android:maxWidth="384dp"/>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+        android:id="@+id/tv_guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="28dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/tv_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Play"
-        android:textSize="12sp"
-        android:textAllCaps="false"
-        android:textColor="#E6DFDF"
+        android:layout_marginTop="8dp"
+        android:drawableLeft="@drawable/ic_play"
         android:gravity="left |center_vertical"
         android:paddingLeft="5dp"
-        android:drawableLeft="@drawable/ic_play"
+        android:text="Play"
+        android:textAllCaps="false"
+        android:textColor="#E6DFDF"
 
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title_bold" />
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_guideline4"
+        app:layout_constraintStart_toStartOf="@+id/tv_guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_seasons" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
+        android:id="@+id/tv_guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -76,11 +76,27 @@
         android:textColor="@color/white"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintEnd_toStartOf="@+id/tv_guideline4"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintStart_toStartOf="@+id/tv_guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_button"
         android:maxWidth="384dp"/>
+
+    <TextView
+        android:id="@+id/tv_seasons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:maxWidth="384dp"
+        android:maxLines="4"
+        android:paddingRight="30dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_bold" />
 
     <RatingBar
         android:id="@+id/tv_rating_bar"
@@ -90,20 +106,20 @@
         android:layout_marginTop="16dp"
         android:padding="0dp"
         android:progressBackgroundTint="#EBD6D4D4"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintEnd_toStartOf="@+id/tv_guideline4"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/tv_guideline2"
         app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
 
     <TextView
         android:id="@+id/tv_rating_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
         android:text="TextView"
-        android:textSize="12sp"
         android:textColor="#EBD6D4D4"
+        android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/tv_rating_bar"
         app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
 
@@ -112,7 +128,7 @@
 
 
     <TextView
-        android:id="@+id/tmdb_word"
+        android:id="@+id/tv_tmdb_word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -132,43 +148,8 @@
         android:text="TextView"
         android:textColor="#EBD6D4D4"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/tmdb_word"
+        app:layout_constraintStart_toEndOf="@+id/tv_tmdb_word"
         app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
-
-    <TextView
-        android:id="@+id/movie_genre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        android:textColor="#EBD6D4D4"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/tv_rating_float"
-        app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
-
-    <TextView
-        android:id="@+id/movie_release_year"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        android:textColor="#EBD6D4D4"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/tv_rating_bar" />
-
-    <TextView
-        android:id="@+id/movie_runtime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        android:textColor="#EBD6D4D4"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/movie_release_year"
-        app:layout_constraintTop_toBottomOf="@+id/tv_rating_bar" />
 
 
 

@@ -5,15 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.lexandroid.movieapp.R;
-import com.lexandroid.movieapp.SearchActivity;
-import com.lexandroid.movieapp.models.MovieModel;
 import com.lexandroid.movieapp.models.SearchModel;
 import com.lexandroid.movieapp.utils.Credentials;
 
@@ -33,7 +30,7 @@ public class SearchRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHo
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_list_item, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_item_card, parent,false);
         return new SearchViewHolder(view, onSearchListener);
     }
 
@@ -91,7 +88,7 @@ public class SearchRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHo
             if(mResults.size() > 0) {
                 Log.v("Debug", "Integer ID of search clicked --> " + mResults.get(position).getId());
                 Log.v("Debug", "Media Type of clicked --> " + mResults.get(position).getMedia_type());
-                Log.v("Debug", "Media Type of clicked --> " + position);
+                Log.v("Debug", "Position of clicked --> " + position);
                 return mResults.get(position);
             }
         }

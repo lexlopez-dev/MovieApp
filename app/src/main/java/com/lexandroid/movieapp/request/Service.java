@@ -19,7 +19,7 @@ public class Service {
     private static TmdbApi tmdbApi = retrofit.create(TmdbApi.class);
 
     public static TmdbApi getTmdbApi() {//had to make this static because of the main activity getRetrofitResponse
-        Log.v("Debug", "Able to start Service.getMovieAPI");
+        Log.v("Debug", "Able to start Service.getTmdbAPI");
         return tmdbApi;
     }
 }

@@ -4,20 +4,20 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class TvModel implements Parcelable {
-    private String backdrop_path, first_air_date, last_air_date, name, overview, poster_path;
-    private int id, number_of_episodes, number_of_seasons, popularity, vote_count;
-    private float vote_average;
+    private String backdrop_path, first_air_date, last_air_date, original_name, overview, poster_path;
+    private int tv_id, number_of_episodes, number_of_seasons, vote_count;
+    private float vote_average, popularity;
 
     private Season[] seasons;
 
-    public TvModel(String backdrop_path, String first_air_date, String last_air_date, String name, String overview, String poster_path, int id, int number_of_episodes, int number_of_seasons, int popularity, int vote_count, float vote_average, Season[] seasons) {
+    public TvModel(String backdrop_path, String first_air_date, String last_air_date, String original_name, String overview, String poster_path, int tv_id, int number_of_episodes, int number_of_seasons, float popularity, int vote_count, float vote_average) {
         this.backdrop_path = backdrop_path;
         this.first_air_date = first_air_date;
         this.last_air_date = last_air_date;
-        this.name = name;
+        this.original_name = original_name;
         this.overview = overview;
         this.poster_path = poster_path;
-        this.id = id;
+        this.tv_id = tv_id;
         this.number_of_episodes = number_of_episodes;
         this.number_of_seasons = number_of_seasons;
         this.popularity = popularity;
@@ -30,13 +30,13 @@ public class TvModel implements Parcelable {
         backdrop_path = in.readString();
         first_air_date = in.readString();
         last_air_date = in.readString();
-        name = in.readString();
+        original_name = in.readString();
         overview = in.readString();
         poster_path = in.readString();
-        id = in.readInt();
+        tv_id = in.readInt();
         number_of_episodes = in.readInt();
         number_of_seasons = in.readInt();
-        popularity = in.readInt();
+        popularity = in.readFloat();
         vote_count = in.readInt();
         vote_average = in.readFloat();
     }
@@ -65,8 +65,8 @@ public class TvModel implements Parcelable {
         return last_air_date;
     }
 
-    public String getName() {
-        return name;
+    public String getOriginal_name() {
+        return original_name;
     }
 
     public String getOverview() {
@@ -78,18 +78,23 @@ public class TvModel implements Parcelable {
     }
 
     public int getId() {
-        return id;
+        return tv_id;
     }
 
     public int getNumber_of_episodes() {
         return number_of_episodes;
     }
 
-    public int getNumber_of_seasons() {
-        return number_of_seasons;
+    public String getNumber_of_seasons() {
+        if(number_of_seasons > 1) {
+            return number_of_seasons + " Seasons";
+        }else{
+            return number_of_seasons + " Season";
+        }
+
     }
 
-    public int getPopularity() {
+    public float getPopularity() {
         return popularity;
     }
 
@@ -115,13 +120,13 @@ public class TvModel implements Parcelable {
         parcel.writeString(backdrop_path);
         parcel.writeString(first_air_date);
         parcel.writeString(last_air_date);
-        parcel.writeString(name);
+        parcel.writeString(original_name);
         parcel.writeString(overview);
         parcel.writeString(poster_path);
-        parcel.writeInt(id);
+        parcel.writeInt(tv_id);
         parcel.writeInt(number_of_episodes);
         parcel.writeInt(number_of_seasons);
-        parcel.writeInt(popularity);
+        parcel.writeFloat(popularity);
         parcel.writeInt(vote_count);
         parcel.writeFloat(vote_average);
     }

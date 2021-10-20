@@ -2,13 +2,9 @@ package com.lexandroid.movieapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,12 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.lexandroid.movieapp.adapters.MovieRecyclerView;
 import com.lexandroid.movieapp.adapters.OnMovieListener;
-import com.lexandroid.movieapp.models.MovieModel;
 import com.lexandroid.movieapp.viewmodels.MovieListViewModel;
 
-import java.util.List;
 //TODO: THIS CLASS IS A COPY OF MOVIESEARCHACTIVITY BEFORE ANY CHANGES, THIS WILL BE USED LATER ON AS MAIN HOME PAGE
-public class MainPageActivity extends AppCompatActivity implements OnMovieListener {
+public class HomePageActivity extends AppCompatActivity implements OnMovieListener {
 
     //Before we run our app, we need to add the Network Security config
 
@@ -37,13 +31,13 @@ public class MainPageActivity extends AppCompatActivity implements OnMovieListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_page);
+        setContentView(R.layout.activity_home_page);
 
         //Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        recyclerView = findViewById(R.id.movieRecyclerView1);
+        recyclerView = findViewById(R.id.home_rec_view_1);
 
         movieListViewModel = new ViewModelProvider(this).get(MovieListViewModel.class);
 
@@ -94,7 +88,7 @@ public class MainPageActivity extends AppCompatActivity implements OnMovieListen
 
         HorizontalLayout
                 = new LinearLayoutManager(
-                MainPageActivity.this,
+                HomePageActivity.this,
                 LinearLayoutManager.HORIZONTAL,
                 false);
         //recyclerView.setLayoutManager(HorizontalLayout);  //use this instead of below to create longer views like netflix

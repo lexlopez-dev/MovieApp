@@ -1,6 +1,5 @@
 package com.lexandroid.movieapp.adapters;
 
-import android.graphics.Movie;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +27,7 @@ public class MovieRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHol
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_list_item, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_item_card, parent,false);
         return new MovieViewHolder(view, onMovieListener);
     }
 

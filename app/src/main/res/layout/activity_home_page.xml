@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainPageActivity"
+    tools:context=".HomePageActivity"
     android:background="@drawable/ic_gradient_background"
     >
 
@@ -20,14 +20,6 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         >
 
-        <androidx.appcompat.widget.SearchView
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:id="@+id/search_view"
-            app:queryHint="Search"
-            android:textColorHint="@color/white"
-            />
-
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -42,7 +34,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/movieRecyclerView1"
+        android:id="@+id/home_rec_view_1"
 
         android:layout_width="409dp"
         android:layout_height="wrap_content"

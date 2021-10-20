@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PersonDetails"
+    android:background="@drawable/ic_gradient_background">
+
+    <ImageView
+        android:id="@+id/imageView_person"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/black"/>
+
+    <TextView
+        android:id="@+id/person_name_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="27sp"
+        android:textStyle="bold"
+        android:paddingRight="15dp"
+        app:layout_constraintEnd_toStartOf="@+id/person_guideline4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/person_guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_person"
+        android:maxWidth="384dp"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/person_guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="28dp" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/person_guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="384dp" />
+
+    <TextView
+        android:id="@+id/person_bio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:maxWidth="384dp"
+        android:maxLines="4"
+        android:paddingRight="30dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/person_guideline4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/person_guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/person_departments" />
+
+    <TextView
+        android:id="@+id/person_departments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ellipsize="end"
+        android:maxWidth="384dp"
+        android:maxLines="4"
+        android:paddingRight="30dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/person_guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/person_name_bold" />
+
+
+    <TextView
+        android:id="@+id/person_popularity_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TMDb Popularity:"
+        android:textColor="#EBD6D4D4"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/person_guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/person_bio" />
+
+    <TextView
+        android:id="@+id/person_popularity_float"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textColor="#EBD6D4D4"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/person_popularity_word"
+        app:layout_constraintTop_toBottomOf="@+id/person_bio" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

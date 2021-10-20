@@ -20,11 +20,12 @@ import android.widget.Toast;
 import com.lexandroid.movieapp.adapters.OnSearchListener;
 import com.lexandroid.movieapp.adapters.SearchRecyclerView;
 import com.lexandroid.movieapp.models.MovieModel;
+import com.lexandroid.movieapp.models.PersonModel;
 import com.lexandroid.movieapp.models.SearchModel;
+import com.lexandroid.movieapp.models.tv.TvModel;
 import com.lexandroid.movieapp.request.Service;
 import com.lexandroid.movieapp.utils.Credentials;
 import com.lexandroid.movieapp.utils.TmdbApi;
-import com.lexandroid.movieapp.viewmodels.MovieListViewModel;
 import com.lexandroid.movieapp.viewmodels.SearchListViewModel;
 
 import java.io.IOException;
@@ -89,6 +90,7 @@ public class SearchActivity extends AppCompatActivity implements OnSearchListene
 
             @Override
             public boolean onQueryTextChange(String s) {
+                searchListViewModel.searchAllApi(s, 1);
                 return false;
             } //TODO: eventually set upQueryTextChange
         });
@@ -150,7 +152,6 @@ public class SearchActivity extends AppCompatActivity implements OnSearchListene
 
     @Override
     public void onSearchClick(int position) {
-        //Getting the ID of the clicked movie and sending it to movielistviewmodel
         Log.d("Debug", "Sending this id to search: " + searchRecyclerViewAdapter.getSelected(position).getId());
         if(searchRecyclerViewAdapter.getSelected(position).getMedia_type().equals("movie")) {
             Intent intent = new Intent(this, MovieDetails.class);
@@ -167,9 +168,35 @@ public class SearchActivity extends AppCompatActivity implements OnSearchListene
                 }
             });
         }else if(searchRecyclerViewAdapter.getSelected(position).getMedia_type().equals("tv")) {
-            Toast.makeText(this, "TV Activity Will Open", Toast.LENGTH_SHORT).show();
+            Log.d("Debug", "TV WAS CLICKED");
+            Intent intentTv = new Intent(this, TvDetails.class);
+            getRetrofitResponseAccordingToTvID(searchRecyclerViewAdapter.getSelected(position).getId(), new GetRetrofitResponseAccordingToTvID() {
+                @Override
+                public void onSuccess(@NonNull TvModel tvModel) {
+                    intentTv.putExtra("tv", (Parcelable) tvModel);
+                    startActivity(intentTv);
+                }
+
+                @Override
+                public void onError(@NonNull Throwable throwable) {
+                    Log.d("Debug", "Error: Throwable = " + throwable);
+                }
+            });
         }else if(searchRecyclerViewAdapter.getSelected(position).getMedia_type().equals("person")){
-            Toast.makeText(this, "Person Activity Will Open", Toast.LENGTH_SHORT).show();
+            Log.d("Debug", "PERSON WAS CLICKED");
+            Intent intentPerson = new Intent(this, PersonDetails.class);
+            getRetrofitResponseAccordingToPersonID(searchRecyclerViewAdapter.getSelected(position).getId(), new GetRetrofitResponseAccordingToPersonID() {
+                @Override
+                public void onSuccess(@NonNull PersonModel personModel) {
+                    intentPerson.putExtra("person", (Parcelable) personModel);
+                    startActivity(intentPerson);
+                }
+
+                @Override
+                public void onError(@NonNull Throwable throwable) {
+                    Log.d("Debug", "Error: Throwable = " + throwable);
+                }
+            });
         }
 
 
@@ -177,6 +204,7 @@ public class SearchActivity extends AppCompatActivity implements OnSearchListene
     }
 
 
+    //***** FOR MOVIES ******//
     public interface GetRetrofitResponseAccordingToID {
         void onSuccess(@NonNull MovieModel movieModel);
 
@@ -203,7 +231,7 @@ public class SearchActivity extends AppCompatActivity implements OnSearchListene
 
 
                 if (response.code() == 200) {
-                    MovieModel clickedMovieResult = response.body(); //TODO: Complete this
+                    MovieModel clickedMovieResult = response.body();
                     callbacks.onSuccess(clickedMovieResult);
                     Log.v("Debug", "The Response:" + clickedMovieResult.getOriginal_title());
                 } else {
@@ -221,10 +249,103 @@ public class SearchActivity extends AppCompatActivity implements OnSearchListene
 
             }
         });
+    }
 
+    //********** FOR TV ************//
+    public interface GetRetrofitResponseAccordingToTvID {
+        void onSuccess(@NonNull TvModel tvModel);
+
+        void onError(@NonNull Throwable throwable);
 
     }
 
+    private void getRetrofitResponseAccordingToTvID(int id, @Nullable GetRetrofitResponseAccordingToTvID callbacks) {
+        Log.v("Debug", "Able to start getRetrofitResponseAccordingToTvID");
+        Log.v("Debug", "ID used: " + id);
+
+        TmdbApi tmdbApi = Service.getTmdbApi();
+
+        Call<TvModel> responseCallTv = tmdbApi
+                .getSpecificTv(
+                        id,
+                        Credentials.API_KEY
+                );
+
+        Log.v("Debug", "Able to get response call from tvApi");
+
+        responseCallTv.enqueue(new Callback<TvModel>() {
+            @Override
+            public void onResponse(Call<TvModel> call, Response<TvModel> response) {
+
+
+                if (response.code() == 200) {
+                    TvModel clickedTvResult = response.body(); //TODO: Complete this
+                    callbacks.onSuccess(clickedTvResult);
+                    Log.v("Debug", "The Response:" + clickedTvResult.getOriginal_name());
+                } else if(response.code() == 401 || response.code() == 404){
+                    try {
+                        Log.v("Debug", "Error: " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<TvModel> call, Throwable t) {
+                Log.d("Debug", "Error throwable: " + t);
+            }
+        });
+    }
+
+    //********** FOR PEOPLE ************//
+    public interface GetRetrofitResponseAccordingToPersonID {
+        void onSuccess(@NonNull PersonModel personModel);
+
+        void onError(@NonNull Throwable throwable);
+
+    }
+
+    private void getRetrofitResponseAccordingToPersonID(int id, @Nullable GetRetrofitResponseAccordingToPersonID callbacks) {
+        Log.v("Debug", "Able to start getRetrofitResponseAccordingToPersonID");
+        Log.v("Debug", "ID used: " + id);
+
+        TmdbApi tmdbApi = Service.getTmdbApi();
+
+        Call<PersonModel> responseCallPerson = tmdbApi
+                .getSpecificPerson(
+                        id,
+                        Credentials.API_KEY
+                );
+
+        Log.v("Debug", "Able to get response call from tvApi");
+
+        responseCallPerson.enqueue(new Callback<PersonModel>() {
+            @Override
+            public void onResponse(Call<PersonModel> call, Response<PersonModel> response) {
+
+
+                if (response.code() == 200) {
+                    PersonModel clickedPersonResult = response.body(); //TODO: Complete this
+                    callbacks.onSuccess(clickedPersonResult);
+                    Log.v("Debug", "The Response:" + clickedPersonResult.getName());
+                } else if(response.code() == 401 || response.code() == 404){
+                    try {
+                        Log.v("Debug", "Error: " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<PersonModel> call, Throwable t) {
+                Log.d("Debug", "Error throwable: " + t);
+            }
+        });
+    }
 
     @Override
     public void onCategoryClick(String category) {

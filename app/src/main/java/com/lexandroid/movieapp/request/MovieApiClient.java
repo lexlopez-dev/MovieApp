@@ -12,6 +12,7 @@ import com.lexandroid.movieapp.response.MovieSearchResponse;
 import com.lexandroid.movieapp.utils.Credentials;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
@@ -20,14 +21,20 @@ import retrofit2.Response;
 
 public class MovieApiClient {
 
-    //LiveData
+    //LiveData for movies search (not currently being used)
     private MutableLiveData<MovieModel> mMovies;
+
+    //LiveData for getPopularMovies
+    private MutableLiveData<List<MovieModel>> mMoviesPopular;
 
     private static MovieApiClient instance;
 
 
-    //Making Global RUNNABLE qequest
+    //Making Global RUNNABLE request
     private RetrieveMovieRunnable retrieveMovieRunnable;
+
+    //Making Global RUNNABLE for popular
+    private RetrieveMovieRunnable retrievePopularMovieRunnable;
 
 
 
@@ -40,6 +47,7 @@ public class MovieApiClient {
 
     private MovieApiClient() {
         mMovies = new MutableLiveData<>();
+        mMoviesPopular = new MutableLiveData<>();
     }
 
     public LiveData<MovieModel> getMovies() {
@@ -113,6 +121,13 @@ public class MovieApiClient {
                         query,
                         page
                 );
+        }
+
+        private Call<MovieSearchResponse> getPopularMovies(int page) {
+            return Service.getTmdbApi().getPopularMovies(
+                    Credentials.API_KEY,
+                    page
+            );
         }
 
         private Call<MovieModel> getSpecificMovie(int movieId) {

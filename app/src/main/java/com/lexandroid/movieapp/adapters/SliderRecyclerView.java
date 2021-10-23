@@ -10,25 +10,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.lexandroid.movieapp.R;
-import com.lexandroid.movieapp.models.MovieModel;
+import com.lexandroid.movieapp.models.SearchModel;
 import com.lexandroid.movieapp.utils.Credentials;
 
 import java.util.List;
 
-public class MovieRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class SliderRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<MovieModel> mMovies;
-    private OnMovieListener onMovieListener;
+    private List<SearchModel> mMovies;
+    private OnSliderListener onSliderListener;
+    String sliderName;
 
-    public MovieRecyclerView(OnMovieListener onMovieListener) {
-        this.onMovieListener = onMovieListener;
+    public SliderRecyclerView(OnSliderListener onSliderListener) {
+        this.onSliderListener = onSliderListener;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_item_card, parent,false);
-        return new MovieViewHolder(view, onMovieListener);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_item_card, parent,false);
+        return new SliderViewHolder(view, onSliderListener);
     }
 
     @Override
@@ -41,7 +42,7 @@ public class MovieRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHol
         Glide.with(holder.itemView.getContext())
                 .asBitmap()
                 .load(Credentials.IMG_URL + mMovies.get(position).getPoster_path())
-                .into(((MovieViewHolder)holder).imageView);
+                .into(((SliderViewHolder)holder).imageView);
     }
 
     @Override
@@ -52,17 +53,20 @@ public class MovieRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHol
         return 0;
     }
 
-    public void setmMovies(List<MovieModel> mMovies) {
+    public void setmMovies(List<SearchModel> mMovies, String sliderName) {
+        for (SearchModel movie: mMovies
+             ) {
+            movie.setSliderName(sliderName);
+        }
         this.mMovies = mMovies;
         notifyDataSetChanged();
     }
 
     //Getting the id of the movie clicked
-    public MovieModel getSelected(int position) {
+    public SearchModel getSelected(int position) {
         if(mMovies != null) {
             if(mMovies.size() > 0) {
-                Log.v("Debug", "Integer ID of movie clicked --> " + mMovies.get(position));
-                Log.v("Debug", "Integer ID of movie clicked --> " + mMovies.get(position).getMedia_type());
+                Log.v("Debug", "sliderName of Clicked --> " + mMovies.get(position).getSliderName());
                 return mMovies.get(position);
             }
         }

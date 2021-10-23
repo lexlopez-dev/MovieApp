@@ -15,8 +15,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.lexandroid.movieapp.adapters.OnSearchListener;
 import com.lexandroid.movieapp.adapters.SearchRecyclerView;
 import com.lexandroid.movieapp.models.MovieModel;
@@ -73,7 +75,32 @@ public class SearchActivity extends AppCompatActivity implements OnSearchListene
         observeAnyChange();
         SetupSearchView();
 
-        Log.d("Debug", "SearchActivity onCreate complete");
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+
+        navigation.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.search:
+                        break;
+                    case R.id.coming_soon:
+                        Toast.makeText(SearchActivity.this, "Start Coming Soon Act", Toast.LENGTH_SHORT).show();
+//                        Intent a = new Intent(MainActivity.this,ActivityOne.class);
+//                        startActivity(a);
+                        break;
+                    case R.id.home:
+                        Intent b = new Intent(SearchActivity.this, HomePageActivity.class);
+                        startActivity(b);
+                        break;
+                    case R.id.my_stuff:
+                        Toast.makeText(SearchActivity.this, "Start MyStuff Act", Toast.LENGTH_SHORT).show();
+//                        Intent c = new Intent(HomePageActivity.this, SearchActivity.class);
+//                        startActivity(b);
+                        break;
+                }
+                return false;
+            }
+        });
 
     }
 

@@ -3,9 +3,7 @@ package com.lexandroid.movieapp.viewmodels;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.lexandroid.movieapp.models.MovieModel;
 import com.lexandroid.movieapp.models.SearchModel;
-import com.lexandroid.movieapp.repositories.MovieRepository;
 import com.lexandroid.movieapp.repositories.SearchRepository;
 
 import java.util.List;

@@ -4,11 +4,12 @@ package com.lexandroid.movieapp.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.lexandroid.movieapp.models.MovieModel;
+import com.lexandroid.movieapp.models.SearchModel;
 
 import java.util.List;
 
 //This class is for getting multiple movies (Movies lists) - popular movies
-public class MovieSearchResponse {
+public class SliderSearchResponse {
     @SerializedName("total_results")
     @Expose
     private int total_count;
@@ -16,21 +17,22 @@ public class MovieSearchResponse {
 
     @SerializedName("results")
     @Expose()
-    private List<MovieModel> movies;
+    private List<SearchModel> results;
 
     public int getTotal_count() {
         return total_count;
     }
 
-    public List<MovieModel> getMovies() {
-        return movies;
+    public List<SearchModel> getResults() {
+        return results;
     }
 
     @Override
     public String toString() {
         return "MovieSearchResponse{" +
                 "total_count=" + total_count +
-                ", movies=" + movies +
+                ", movies=" + results +
                 '}';
     }
+
 }

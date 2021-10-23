@@ -3,30 +3,17 @@ package com.lexandroid.movieapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.lexandroid.movieapp.models.MovieModel;
-import com.lexandroid.movieapp.request.MovieApiClient;
-import com.lexandroid.movieapp.request.Service;
-import com.lexandroid.movieapp.response.MovieResponse;
 import com.lexandroid.movieapp.utils.Credentials;
-import com.lexandroid.movieapp.utils.TmdbApi;
-import com.lexandroid.movieapp.viewmodels.MovieListViewModel;
 
-import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.Arrays;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MovieDetails extends AppCompatActivity {
     //Widgets

@@ -2,9 +2,7 @@ package com.lexandroid.movieapp.repositories;
 
 import androidx.lifecycle.LiveData;
 
-import com.lexandroid.movieapp.models.MovieModel;
 import com.lexandroid.movieapp.models.SearchModel;
-import com.lexandroid.movieapp.request.MovieApiClient;
 import com.lexandroid.movieapp.request.SearchApiClient;
 
 import java.util.List;

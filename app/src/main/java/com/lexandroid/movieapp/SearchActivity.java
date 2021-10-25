@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -50,6 +51,8 @@ public class SearchActivity extends AppCompatActivity implements OnSearchListene
     private SearchListViewModel searchListViewModel;
     private LinearLayoutManager HorizontalLayout;
 
+    SearchView searchView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,14 @@ public class SearchActivity extends AppCompatActivity implements OnSearchListene
 
 
         searchListViewModel = new ViewModelProvider(this).get(SearchListViewModel.class);
+
+
+        searchView = findViewById(R.id.all_search_view);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        searchView.setIconifiedByDefault(false);
+        searchView.requestFocus();
+
+
 
 
         //Calling the observers

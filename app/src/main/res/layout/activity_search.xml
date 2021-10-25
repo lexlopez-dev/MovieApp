@@ -16,8 +16,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_scrollFlags="scroll|enterAlways"
-        android:theme="@style/ThemeOverlay.AppCompat.Light"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
         >
 
         <androidx.appcompat.widget.SearchView
@@ -26,6 +26,8 @@
             android:id="@+id/all_search_view"
             app:queryHint="Search"
             android:textColorHint="@color/white"
+            android:focusableInTouchMode="true"
+            android:windowSoftInputMode="adjustPan|stateVisible"
             />
 
 

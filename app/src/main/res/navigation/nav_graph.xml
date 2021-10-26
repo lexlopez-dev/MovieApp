@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.lexandroid.movieapp.HomePageActivity"
+        android:label="home"
+        tools:layout="@layout/activity_home_page" />
+
+    <fragment
+        android:id="@+id/navigation_comingSoon"
+        android:name="com.lexandroid.movieapp.ComingSoonActivity"
+        android:label="comingSoon"
+        tools:layout="@layout/activity_coming_soon" />
+
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.lexandroid.movieapp.SearchActivity"
+        android:label="search"
+        tools:layout="@layout/activity_search" />
+
+
+    <fragment
+        android:id="@+id/navigation_myStuff"
+        android:name="com.lexandroid.movieapp.MyStuffActivity"
+        android:label="myStuff"
+        tools:layout="@layout/activity_my_stuff" />
+
+</navigation>

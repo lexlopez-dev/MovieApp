@@ -40,7 +40,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_navigation_menu"
-        app:labelVisibilityMode="labeled"/>
+        app:labelVisibilityMode="labeled"
+        app:itemBackground="@color/dark_gray"
+        app:itemRippleColor="@color/dark_gray"/>
 
 
     <androidx.recyclerview.widget.RecyclerView

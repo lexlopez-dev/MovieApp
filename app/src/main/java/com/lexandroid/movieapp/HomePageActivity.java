@@ -15,6 +15,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -97,26 +101,26 @@ public class HomePageActivity extends AppCompatActivity implements OnSliderListe
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
+        navigation.setSelectedItemId(R.id.home);
+
         navigation.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.home:
-                        break;
+                        return true;
                     case R.id.coming_soon:
-                        Toast.makeText(HomePageActivity.this, "Start Coming Soon Act", Toast.LENGTH_SHORT).show();
-//                        Intent a = new Intent(MainActivity.this,ActivityOne.class);
-//                        startActivity(a);
-                        break;
+                        startActivity(new Intent(getApplicationContext(),ComingSoonActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
                     case R.id.search:
-                        Intent b = new Intent(HomePageActivity.this, SearchActivity.class);
-                        startActivity(b);
-                        break;
+                        startActivity(new Intent(getApplicationContext(),SearchActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
                     case R.id.my_stuff:
-                        Toast.makeText(HomePageActivity.this, "Start MyStuff Act", Toast.LENGTH_SHORT).show();
-//                        Intent c = new Intent(HomePageActivity.this, SearchActivity.class);
-//                        startActivity(b);
-                        break;
+                        startActivity(new Intent(getApplicationContext(),MyStuffActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
                 }
                 return false;
             }

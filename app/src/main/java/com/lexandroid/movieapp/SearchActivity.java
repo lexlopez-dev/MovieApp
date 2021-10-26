@@ -88,26 +88,26 @@ public class SearchActivity extends AppCompatActivity implements OnSearchListene
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
+        navigation.setSelectedItemId(R.id.search);
+
         navigation.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.search:
-                        break;
-                    case R.id.coming_soon:
-                        Toast.makeText(SearchActivity.this, "Start Coming Soon Act", Toast.LENGTH_SHORT).show();
-//                        Intent a = new Intent(MainActivity.this,ActivityOne.class);
-//                        startActivity(a);
-                        break;
                     case R.id.home:
-                        Intent b = new Intent(SearchActivity.this, HomePageActivity.class);
-                        startActivity(b);
-                        break;
+                        startActivity(new Intent(getApplicationContext(),HomePageActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.coming_soon:
+                        startActivity(new Intent(getApplicationContext(),ComingSoonActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.search:
+                        return true;
                     case R.id.my_stuff:
-                        Toast.makeText(SearchActivity.this, "Start MyStuff Act", Toast.LENGTH_SHORT).show();
-//                        Intent c = new Intent(HomePageActivity.this, SearchActivity.class);
-//                        startActivity(b);
-                        break;
+                        startActivity(new Intent(getApplicationContext(),MyStuffActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
                 }
                 return false;
             }

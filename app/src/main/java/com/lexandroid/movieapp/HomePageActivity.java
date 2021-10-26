@@ -1,12 +1,17 @@
 package com.lexandroid.movieapp;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewParent;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -91,10 +96,10 @@ public class HomePageActivity extends AppCompatActivity implements OnSliderListe
         popMoviesSliderViewModel.searchPopularMoviesApi(1);
         nowPlayingMoviesSliderViewModel.searchNowPlayingMoviesApi(1);
         popTvSliderViewModel.searchPopularTv(1);
-        moviesTrendDaySliderViewModel.searchMoviesTrendingDay(1);
-        tvTrendDaySliderViewModel.searchTvTrendingDay(1);
-        moviesTrendWeekSliderViewModel.searchMoviesTrendingWeek(1);
-        tvTrendWeekSliderViewModel.searchTvTrendingWeek(1);
+        moviesTrendDaySliderViewModel.searchMoviesTrendingDay(2);
+        tvTrendDaySliderViewModel.searchTvTrendingDay(2);
+        moviesTrendWeekSliderViewModel.searchMoviesTrendingWeek(3);
+        tvTrendWeekSliderViewModel.searchTvTrendingWeek(3);
         tvOnAirSliderViewModel.searchTvOnAir(1);
         moviesTopSliderViewModel.searchMoviesTopRated(1);
         tvTopSliderViewModel.searchTvTopRated(1);
@@ -126,7 +131,30 @@ public class HomePageActivity extends AppCompatActivity implements OnSliderListe
             }
         });
 
+        if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
+            setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true);
+        }
+        if (Build.VERSION.SDK_INT >= 19) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        }
 
+        if (Build.VERSION.SDK_INT >= 21) {
+            setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
+
+
+    }
+
+    public static void setWindowFlag(Activity activity, final int bits, boolean on) {
+        Window win = activity.getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
     }
 
     private void ObserveAllSliderData() {

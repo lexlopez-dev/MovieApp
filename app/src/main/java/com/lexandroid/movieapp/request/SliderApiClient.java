@@ -556,6 +556,8 @@ public class SliderApiClient {
                     List<SearchModel> list = new ArrayList<>(((SliderSearchResponse)response.body()).getResults());
                     if(page == 1) {
                         mMoviesTrendingDay.postValue(list);
+                    }else if(page == 2) {
+                        mMoviesTrendingDay.postValue(list);
                     }else {
                         List<SearchModel> currentMovies = mMoviesTrendingDay.getValue();
                         currentMovies.addAll(list);
@@ -610,7 +612,10 @@ public class SliderApiClient {
                     List<SearchModel> list = new ArrayList<>(((SliderSearchResponse)response.body()).getResults());
                     if(page == 1) {
                         mTvTrendingDay.postValue(list);
-                    }else {
+                    } else if(page == 2) {
+                        mTvTrendingDay.postValue(list);
+                    }
+                    else {
                         List<SearchModel> current = mTvTrendingDay.getValue();
                         current.addAll(list);
                         mTvTrendingDay.postValue(current);
@@ -664,7 +669,10 @@ public class SliderApiClient {
                     List<SearchModel> list = new ArrayList<>(((SliderSearchResponse)response.body()).getResults());
                     if(page == 1) {
                         mMoviesTrendingWeek.postValue(list);
-                    }else {
+                    }else if(page == 3) {
+                        mMoviesTrendingWeek.postValue(list);
+                    }
+                    else {
                         List<SearchModel> current = mMoviesTrendingWeek.getValue();
                         current.addAll(list);
                         mMoviesTrendingWeek.postValue(current);
@@ -718,7 +726,10 @@ public class SliderApiClient {
                     List<SearchModel> list = new ArrayList<>(((SliderSearchResponse)response.body()).getResults());
                     if(page == 1) {
                         mTvTrendingWeek.postValue(list);
-                    }else {
+                    } else if(page == 3) {
+                        mTvTrendingWeek.postValue(list);
+                    }
+                    else {
                         List<SearchModel> currentTv = mTvTrendingWeek.getValue();
                         currentTv.addAll(list);
                         mTvTrendingWeek.postValue(currentTv);

@@ -3,6 +3,7 @@ package com.lexandroid.movieapp;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,6 +31,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.lexandroid.movieapp.adapters.SliderRecyclerView;
 import com.lexandroid.movieapp.adapters.OnSliderListener;
@@ -160,20 +167,24 @@ public class HomePageActivity extends AppCompatActivity implements OnSliderListe
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
 
-        GetMainImg();
-
 
 
     }
 
-    private void GetMainImg() {
-        //SearchModel mainImg = popMoviesSliderViewModel.getPopularMovies().getValue().get(0);
-        Log.d("Debug", "MAIN IMG Details: " + sliderRecViewAdapterPopMovies.getSelected(0));
-//        mainImg = findViewById(R.id.home_main_img);
-//        String mainPoster = sliderRecViewAdapterPopMovies.getSelected(0).getPoster_path();
-//        Glide.with(this)
-//                .load(Credentials.IMG_URL + mainPoster)
-//                .into(mainImg);
+    private void GetMainImg(String imgUrl) {
+        Glide.with(this)
+                .asBitmap()
+                .load(Credentials.BEST_IMG_URL + imgUrl)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .dontTransform()
+                .into(new SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL,Target.SIZE_ORIGINAL) {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        mainImg.setImageBitmap(resource);
+                    }
+                });
+
+
     }
 
     public static void setWindowFlag(Activity activity, final int bits, boolean on) {
@@ -195,9 +206,13 @@ public class HomePageActivity extends AppCompatActivity implements OnSliderListe
                     for (SearchModel searchModel: searchModels) {
                         sliderRecViewAdapterPopMovies.setmMovies(searchModels, "sliderRecyclerViewAdapter");
                     }
+                    Log.d("Debug", "MAIN IMG Details: " + sliderRecViewAdapterPopMovies.getSelected(0).getPoster_path());
+                    String imgUrl = sliderRecViewAdapterPopMovies.getSelected(0).getPoster_path();
+                    GetMainImg(imgUrl);
                 }
             }
         });
+
 
         nowPlayingMoviesSliderViewModel.getNowPlayingMovies().observe(this, new Observer<List<SearchModel>>() {
             @Override
@@ -403,7 +418,6 @@ public class HomePageActivity extends AppCompatActivity implements OnSliderListe
         recViewMoviesTopRated.setLayoutManager(HorizontalLayout9);
         recViewTvTopRated.setLayoutManager(HorizontalLayout10);
 
-        Log.d("Debug", "MAIN IMG Details: " + sliderRecViewAdapterPopMovies.getSelected(0));
     }
 
 
@@ -434,7 +448,7 @@ public class HomePageActivity extends AppCompatActivity implements OnSliderListe
 
     @Override
     public void onTileClick(View v, int position) {
-        Log.d("Debug", "MAIN IMG Details: " + sliderRecViewAdapterPopMovies.getSelected(0).getPoster_path());
+        //Log.d("Debug", "MAIN IMG Details: " + sliderRecViewAdapterPopMovies.getSelected(0).getPoster_path());
         ViewParent parent = v.getParent();
         String recView = (((RecyclerView)parent).getTag().toString());
 

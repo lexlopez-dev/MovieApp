@@ -28,11 +28,24 @@
                 android:paddingBottom="65dp">
 
                 <!-- For Recycler View 1-->
-                <ImageView
-                    android:id="@+id/home_main_img"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="560dp"
-                    android:src="@drawable/noimagefound"/>
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/home_main_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/noimagefound"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/custom_gradient_bottom"/>
+                </FrameLayout>
+
 
                 <TextView
                     android:id="@+id/textView"

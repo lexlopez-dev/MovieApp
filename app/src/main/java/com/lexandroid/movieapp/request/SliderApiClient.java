@@ -100,13 +100,11 @@ public class SliderApiClient {
 
     // 1 - This method that we are going to call through the classes
     public void searchMovieApi(int id) {
-        Log.d("Debug", "Made it inside searchMovieApi inside MovieApiClient");
         if(retrieveMovieRunnable != null) {
             retrieveMovieRunnable = null;
         }
 
        retrieveMovieRunnable = new RetrieveMovieRunnable(id);
-        Log.d("Debug", "Made it past RetrieveMovieRunnable inside MovieApiClient");
         final Future myHandler = AppExecutors.getInstance().networkIO().submit(retrieveMovieRunnable);
 
         AppExecutors.getInstance().networkIO().schedule(new Runnable() {
@@ -120,13 +118,11 @@ public class SliderApiClient {
 
     //1 This method we are calling for popular movies
     public void searchPopularMoviesApi(int page) {
-        Log.d("Debug", "inside searchPopularMoviesApi inside MovieApiClient");
         if(retrievePopularMovieRunnable != null) {
             retrievePopularMovieRunnable = null;
         }
 
         retrievePopularMovieRunnable = new RetrievePopularMovieRunnable(page);
-        Log.d("Debug", "Made it past RetrieveMovieRunnable inside MovieApiClient");
         final Future myHandlerPopular = AppExecutors.getInstance().networkIO().submit(retrievePopularMovieRunnable);
 
         AppExecutors.getInstance().networkIO().schedule(new Runnable() {
@@ -140,13 +136,11 @@ public class SliderApiClient {
 
     //1 This method we are calling for now playing movies
     public void searchNowPlayingMoviesApi(int page) {
-        Log.d("Debug", "inside searchNowPlayingMoviesApi inside MovieApiClient");
         if(retrieveNowPlayingMoviesRunnable != null) {
             retrieveNowPlayingMoviesRunnable = null;
         }
 
         retrieveNowPlayingMoviesRunnable = new RetrieveNowPlayingMoviesRunnable(page);
-        Log.d("Debug", "Made it past RetrieveNowPlayingMoviesRunnable inside MovieApiClient");
         final Future myHandlerPopular = AppExecutors.getInstance().networkIO().submit(retrieveNowPlayingMoviesRunnable);
 
         AppExecutors.getInstance().networkIO().schedule(new Runnable() {
@@ -160,13 +154,11 @@ public class SliderApiClient {
 
     //1 This method we are calling for popular tv
     public void searchPopularTvApi(int page) {
-        Log.d("Debug", "inside popularTvApi inside ApiClient");
         if(retrievePopularTvRunnable != null) {
             retrievePopularTvRunnable = null;
         }
 
         retrievePopularTvRunnable = new RetrievePopularTvRunnable(page);
-        Log.d("Debug", "Made it past RetrieveNowPlayingMoviesRunnable inside MovieApiClient");
         final Future myHandlerPopular = AppExecutors.getInstance().networkIO().submit(retrievePopularTvRunnable);
 
         AppExecutors.getInstance().networkIO().schedule(new Runnable() {
@@ -180,13 +172,11 @@ public class SliderApiClient {
 
     //1 This method we are calling for movies trending day
     public void searchMoviesTrendingDayApi(int page) {
-        Log.d("Debug", "inside popularTvApi inside ApiClient");
         if(retrieveMoviesTrendingDayRunnable != null) {
             retrieveMoviesTrendingDayRunnable = null;
         }
 
         retrieveMoviesTrendingDayRunnable = new RetrieveMoviesTrendingDayRunnable(page);
-        Log.d("Debug", "Made it past RetrieveNowPlayingMoviesRunnable inside MovieApiClient");
         final Future myHandlerPopular = AppExecutors.getInstance().networkIO().submit(retrieveMoviesTrendingDayRunnable);
 
         AppExecutors.getInstance().networkIO().schedule(new Runnable() {
@@ -200,13 +190,11 @@ public class SliderApiClient {
 
     //1 This method we are calling for tv trending day
     public void searchTvTrendingDayApi(int page) {
-        Log.d("Debug", "inside popularTvApi inside ApiClient");
         if(retrieveTvTrendingDayRunnable != null) {
             retrieveTvTrendingDayRunnable = null;
         }
 
         retrieveTvTrendingDayRunnable = new RetrieveTvTrendingDayRunnable(page);
-        Log.d("Debug", "Made it past RetrieveNowPlayingMoviesRunnable inside MovieApiClient");
         final Future myHandlerPopular = AppExecutors.getInstance().networkIO().submit(retrieveTvTrendingDayRunnable);
 
         AppExecutors.getInstance().networkIO().schedule(new Runnable() {
@@ -220,13 +208,11 @@ public class SliderApiClient {
 
     //1 This method we are calling for movies trending week
     public void searchMoviesTrendingWeekApi(int page) {
-        Log.d("Debug", "inside popularTvApi inside ApiClient");
         if(retrieveMoviesTrendingWeekRunnable != null) {
             retrieveMoviesTrendingWeekRunnable = null;
         }
 
         retrieveMoviesTrendingWeekRunnable = new RetrieveMoviesTrendingWeekRunnable(page);
-        Log.d("Debug", "Made it past RetrieveNowPlayingMoviesRunnable inside MovieApiClient");
         final Future myHandlerPopular = AppExecutors.getInstance().networkIO().submit(retrieveMoviesTrendingWeekRunnable);
 
         AppExecutors.getInstance().networkIO().schedule(new Runnable() {
@@ -240,13 +226,11 @@ public class SliderApiClient {
 
     //1 This method we are calling for tv trending week
     public void searchTvTrendingWeekApi(int page) {
-        Log.d("Debug", "inside popularTvApi inside ApiClient");
         if(retrieveTvTrendingWeekRunnable != null) {
             retrieveTvTrendingWeekRunnable = null;
         }
 
         retrieveTvTrendingWeekRunnable = new RetrieveTvTrendingWeekRunnable(page);
-        Log.d("Debug", "Made it past RetrieveNowPlayingMoviesRunnable inside MovieApiClient");
         final Future myHandlerPopular = AppExecutors.getInstance().networkIO().submit(retrieveTvTrendingWeekRunnable);
 
         AppExecutors.getInstance().networkIO().schedule(new Runnable() {
@@ -260,13 +244,11 @@ public class SliderApiClient {
 
     //1 This method we are calling for tv on air
     public void searchTvOnAirApi(int page) {
-        Log.d("Debug", "inside popularTvApi inside ApiClient");
         if(retrieveTvOnAirRunnable != null) {
             retrieveTvOnAirRunnable = null;
         }
 
         retrieveTvOnAirRunnable = new RetrieveTvOnAirRunnable(page);
-        Log.d("Debug", "Made it past RetrieveNowPlayingMoviesRunnable inside MovieApiClient");
         final Future myHandlerPopular = AppExecutors.getInstance().networkIO().submit(retrieveTvOnAirRunnable);
 
         AppExecutors.getInstance().networkIO().schedule(new Runnable() {
@@ -280,13 +262,11 @@ public class SliderApiClient {
 
     //1 This method we are calling for movies top rated
     public void searchMoviesTopRatedApi(int page) {
-        Log.d("Debug", "inside popularTvApi inside ApiClient");
         if(retrieveMoviesTopRatedRunnable != null) {
             retrieveMoviesTopRatedRunnable = null;
         }
 
         retrieveMoviesTopRatedRunnable = new RetrieveMoviesTopRatedRunnable(page);
-        Log.d("Debug", "Made it past RetrieveNowPlayingMoviesRunnable inside MovieApiClient");
         final Future myHandlerPopular = AppExecutors.getInstance().networkIO().submit(retrieveMoviesTopRatedRunnable);
 
         AppExecutors.getInstance().networkIO().schedule(new Runnable() {
@@ -300,13 +280,11 @@ public class SliderApiClient {
 
     //1 This method we are calling for tv top rated
     public void searchTvTopRatedApi(int page) {
-        Log.d("Debug", "inside popularTvApi inside ApiClient");
         if(retrieveTvTopRatedRunnable != null) {
             retrieveTvTopRatedRunnable = null;
         }
 
         retrieveTvTopRatedRunnable = new RetrieveTvTopRatedRunnable(page);
-        Log.d("Debug", "Made it past RetrieveNowPlayingMoviesRunnable inside MovieApiClient");
         final Future myHandlerPopular = AppExecutors.getInstance().networkIO().submit(retrieveTvTopRatedRunnable);
 
         AppExecutors.getInstance().networkIO().schedule(new Runnable() {

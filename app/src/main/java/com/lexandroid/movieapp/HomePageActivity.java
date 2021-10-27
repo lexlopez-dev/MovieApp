@@ -1,5 +1,6 @@
 package com.lexandroid.movieapp;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewParent;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,6 +29,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.lexandroid.movieapp.adapters.SliderRecyclerView;
 import com.lexandroid.movieapp.adapters.OnSliderListener;
@@ -57,14 +60,17 @@ public class HomePageActivity extends AppCompatActivity implements OnSliderListe
     private SliderListViewModel popMoviesSliderViewModel, nowPlayingMoviesSliderViewModel, popTvSliderViewModel, moviesTrendDaySliderViewModel, tvTrendDaySliderViewModel, moviesTrendWeekSliderViewModel, tvTrendWeekSliderViewModel, tvOnAirSliderViewModel, moviesTopSliderViewModel, tvTopSliderViewModel;
     private LinearLayoutManager HorizontalLayout, HorizontalLayout2, HorizontalLayout3, HorizontalLayout4, HorizontalLayout5, HorizontalLayout6, HorizontalLayout7, HorizontalLayout8, HorizontalLayout9, HorizontalLayout10, HorizontalLayout11;
 
+    private ImageView mainImg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
         //Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
 
         recViewPopMovies = findViewById(R.id.recView_popularMovies);
         recViewNowPlayingMovies = findViewById(R.id.recView_NowPlayingMovies);
@@ -88,6 +94,8 @@ public class HomePageActivity extends AppCompatActivity implements OnSliderListe
         moviesTopSliderViewModel = new ViewModelProvider(this).get(SliderListViewModel.class);
         tvTopSliderViewModel = new ViewModelProvider(this).get(SliderListViewModel.class);
 
+        mainImg = findViewById(R.id.home_main_img);
+
         //Calling the observers
         ConfigureRecyclerView();
         ObserveAllSliderData();
@@ -104,9 +112,18 @@ public class HomePageActivity extends AppCompatActivity implements OnSliderListe
         moviesTopSliderViewModel.searchMoviesTopRated(1);
         tvTopSliderViewModel.searchTvTopRated(1);
 
+        //**********Main IMG ****************
+//        mainImg = findViewById(R.id.home_main_img);
+//        String mainPoster = sliderRecViewAdapterPopMovies.getSelected(0).getPoster_path();
+//        Glide.with(this)
+//                .load(Credentials.IMG_URL + mainPoster)
+//                .into(mainImg);
+
+        //********* Bottom Nav ********************
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         navigation.setSelectedItemId(R.id.home);
+
 
         navigation.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
@@ -143,7 +160,20 @@ public class HomePageActivity extends AppCompatActivity implements OnSliderListe
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
 
+        GetMainImg();
 
+
+
+    }
+
+    private void GetMainImg() {
+        //SearchModel mainImg = popMoviesSliderViewModel.getPopularMovies().getValue().get(0);
+        Log.d("Debug", "MAIN IMG Details: " + sliderRecViewAdapterPopMovies.getSelected(0));
+//        mainImg = findViewById(R.id.home_main_img);
+//        String mainPoster = sliderRecViewAdapterPopMovies.getSelected(0).getPoster_path();
+//        Glide.with(this)
+//                .load(Credentials.IMG_URL + mainPoster)
+//                .into(mainImg);
     }
 
     public static void setWindowFlag(Activity activity, final int bits, boolean on) {
@@ -373,6 +403,7 @@ public class HomePageActivity extends AppCompatActivity implements OnSliderListe
         recViewMoviesTopRated.setLayoutManager(HorizontalLayout9);
         recViewTvTopRated.setLayoutManager(HorizontalLayout10);
 
+        Log.d("Debug", "MAIN IMG Details: " + sliderRecViewAdapterPopMovies.getSelected(0));
     }
 
 
@@ -403,6 +434,7 @@ public class HomePageActivity extends AppCompatActivity implements OnSliderListe
 
     @Override
     public void onTileClick(View v, int position) {
+        Log.d("Debug", "MAIN IMG Details: " + sliderRecViewAdapterPopMovies.getSelected(0).getPoster_path());
         ViewParent parent = v.getParent();
         String recView = (((RecyclerView)parent).getTag().toString());
 
@@ -469,8 +501,6 @@ public class HomePageActivity extends AppCompatActivity implements OnSliderListe
         responseCall.enqueue(new Callback<MovieModel>() {
             @Override
             public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {
-
-
                 if (response.code() == 200) {
                     MovieModel clickedMovieResult = response.body();
                     callbacks.onSuccess(clickedMovieResult);

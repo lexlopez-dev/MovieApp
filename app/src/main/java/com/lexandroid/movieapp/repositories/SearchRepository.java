@@ -18,6 +18,8 @@ public class SearchRepository {
     private String mQuery;
     private int mPageNumber;
 
+    private int mPageUpcoming;
+
     public static SearchRepository getInstance(){
         if(instance == null) {
             instance = new SearchRepository();
@@ -33,6 +35,10 @@ public class SearchRepository {
         return searchApiClient.getResults();
     }
 
+    public LiveData<List<SearchModel>> getResultsUpcoming() {
+        return searchApiClient.getUpcomingResults();
+    }
+
     //2 - calling the method in repository
     public void searchAllApi(String query, int page) {
         mQuery = query;
@@ -41,8 +47,20 @@ public class SearchRepository {
         searchApiClient.searchAllApi(query, page);
     }
 
+
+    //2 - calling the method in repository
+    public void searchUpcomingApi(int page) {
+        mPageUpcoming = page;
+
+        searchApiClient.searchUpcomingApi(page);
+    }
+
     public void searchNextPage() {
         searchAllApi(mQuery, mPageNumber + 1);
+    }
+
+    public void searchNextPageUpcoming() {
+        searchUpcomingApi(mPageUpcoming + 1);
     }
 
 

@@ -23,6 +23,10 @@ public class SearchListViewModel extends ViewModel {
         return searchRepository.getResults();
     }
 
+    public LiveData<List<SearchModel>> getResultsUpcoming() {
+        return searchRepository.getResultsUpcoming();
+    }
+
 
     // 3 - Calling method in viewmodel
     public void searchAllApi(String query, int page) {
@@ -31,6 +35,16 @@ public class SearchListViewModel extends ViewModel {
 
     public void searchNextPage() {
         searchRepository.searchNextPage();
+    }
+
+
+    // 3 - Calling method in viewmodel
+    public void searchUpcomingApi(int page) {
+        searchRepository.searchUpcomingApi(page);
+    }
+
+    public void searchNextPageUpcoming() {
+        searchRepository.searchNextPageUpcoming();
     }
 
 }

@@ -2,14 +2,32 @@ package com.lexandroid.movieapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.lexandroid.movieapp.adapters.OnSearchListener;
+import com.lexandroid.movieapp.adapters.SearchRecyclerView;
+import com.lexandroid.movieapp.models.SearchModel;
+import com.lexandroid.movieapp.viewmodels.SearchListViewModel;
 
-public class ComingSoonActivity extends AppCompatActivity {
+import java.util.List;
+
+public class ComingSoonActivity extends AppCompatActivity implements OnSearchListener {
+
+    private RecyclerView recyclerViewUpcoming;
+    private SearchRecyclerView searchUpcomingRecyclerViewAdapter;
+
+    private SearchListViewModel searchListViewModelUpcoming;
+    private LinearLayoutManager HorizontalLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +35,16 @@ public class ComingSoonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_coming_soon);
 
 
+        //Toolbar toolbar = findViewById(R.id.comingSoonToolbar);
+
+        recyclerViewUpcoming = findViewById(R.id.comingSoonRecyclerView);
+        searchListViewModelUpcoming = new ViewModelProvider(this).get(SearchListViewModel.class);
+
+        ConfigureRecyclerView();
+        ObserveAnyChange();
+
+        //Getting coming soon data
+        searchListViewModelUpcoming.searchUpcomingApi(1);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
@@ -44,5 +72,61 @@ public class ComingSoonActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void ObserveAnyChange() {
+        searchListViewModelUpcoming.getResultsUpcoming().observe(this, new Observer<List<SearchModel>>() {
+            @Override
+            public void onChanged(List<SearchModel> searchModels) {
+                // Observing for any data change
+                if(searchModels != null) {
+                    for(SearchModel searchModel: searchModels) {
+                        //Get the data in log
+                        Log.v("Tag", "onChanges: " + searchModel.getMedia_type());
+
+                        searchUpcomingRecyclerViewAdapter.setmResults(searchModels);
+                    }
+                }
+            }
+        });
+    }
+
+    private void ConfigureRecyclerView() {
+        searchUpcomingRecyclerViewAdapter = new SearchRecyclerView(this);
+
+        recyclerViewUpcoming.setAdapter(searchUpcomingRecyclerViewAdapter);
+
+        HorizontalLayout
+                = new LinearLayoutManager(
+                ComingSoonActivity.this,
+                LinearLayoutManager.HORIZONTAL,
+                false);
+        //recyclerView.setLayoutManager(HorizontalLayout);  //use this instead of below to create longer views like netflix
+        recyclerViewUpcoming.setLayoutManager(new GridLayoutManager(this, 3));
+
+
+        // RecyclerView Pagination
+        //Loading next pages of results
+        recyclerViewUpcoming.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                if(!recyclerView.canScrollVertically(1)) {
+                    //Here we need to display next search results
+                    searchListViewModelUpcoming.searchNextPageUpcoming();
+                }
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onSearchClick(int position) {
+
+    }
+
+    @Override
+    public void onCategoryClick(String category) {
+
     }
 }

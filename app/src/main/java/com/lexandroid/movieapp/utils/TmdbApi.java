@@ -63,7 +63,7 @@ public interface TmdbApi {
     //Getting upcoming movies
     //Can add a region string to specify by country
     @GET(Credentials.BASE_URL + "movie/upcoming")
-    Call<SliderSearchResponse> getUpcomingMovies(
+    Call<AllSearchResponse> getUpcomingMovies(
             @Query("api_key") String api_key,
             @Query("page") int page
     );

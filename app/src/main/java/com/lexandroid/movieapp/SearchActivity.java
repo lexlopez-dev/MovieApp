@@ -134,14 +134,11 @@ public class SearchActivity extends AppCompatActivity implements OnSearchListene
         });
     }
 
-//    // 4 - Calling Method in Main Activity
-//    private void searchMovieApi(String query, int page) {
-//        movieListViewModel.searchMovieApi(query, page);
-//    }
+
 
     // ** 5 - Initializing recyclerView & adding data
     private void ConfigureRecyclerView() {
-        searchRecyclerViewAdapter = new SearchRecyclerView( this);
+        searchRecyclerViewAdapter = new SearchRecyclerView(this);
 
         recyclerView.setAdapter(searchRecyclerViewAdapter);
 

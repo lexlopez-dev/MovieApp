@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.lexandroid.movieapp.adapters.ComingSoonRecyclerView;
 import com.lexandroid.movieapp.adapters.OnSearchListener;
 import com.lexandroid.movieapp.adapters.SearchRecyclerView;
 import com.lexandroid.movieapp.models.SearchModel;
@@ -24,7 +25,7 @@ import java.util.List;
 public class ComingSoonActivity extends AppCompatActivity implements OnSearchListener {
 
     private RecyclerView recyclerViewUpcoming;
-    private SearchRecyclerView searchUpcomingRecyclerViewAdapter;
+    private ComingSoonRecyclerView searchUpcomingRecyclerViewAdapter;
 
     private SearchListViewModel searchListViewModelUpcoming;
     private LinearLayoutManager HorizontalLayout;
@@ -92,7 +93,7 @@ public class ComingSoonActivity extends AppCompatActivity implements OnSearchLis
     }
 
     private void ConfigureRecyclerView() {
-        searchUpcomingRecyclerViewAdapter = new SearchRecyclerView(this);
+        searchUpcomingRecyclerViewAdapter = new ComingSoonRecyclerView(this);
 
         recyclerViewUpcoming.setAdapter(searchUpcomingRecyclerViewAdapter);
 

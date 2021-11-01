@@ -76,4 +76,6 @@ dependencies {
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
+    implementation 'com.android.support:design:31.0.0'
+
 }

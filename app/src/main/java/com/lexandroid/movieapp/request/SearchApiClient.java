@@ -28,6 +28,8 @@ public class SearchApiClient {
 
     private static SearchApiClient instance;
 
+    String region = "US";
+
 
     //Making Global RUNNABLE qequest
     private RetrieveSearchesRunnable retrieveSearchesRunnable;
@@ -206,7 +208,8 @@ public class SearchApiClient {
         private Call<AllSearchResponse> getUpcomingResults(int page) {
             return Service.getTmdbApi().getUpcomingMovies(
                     Credentials.API_KEY,
-                    page
+                    page,
+                    region
             );
         }
 

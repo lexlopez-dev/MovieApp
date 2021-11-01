@@ -20,11 +20,14 @@ import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Response;
+import retrofit2.http.Query;
 
 public class SliderApiClient {
 
     //LiveData for movies search (not currently being used)
     private MutableLiveData<MovieModel> mMovies;
+
+    String region = "US";
 
     //LiveData
     private MutableLiveData<List<SearchModel>> mMoviesPopular;
@@ -394,7 +397,8 @@ public class SliderApiClient {
         private Call<SliderSearchResponse> getPopularMovies(int page) {
             return Service.getTmdbApi().getPopularMovies(
                     Credentials.API_KEY,
-                    page
+                    page,
+                    region
             );
         }
 
@@ -448,7 +452,8 @@ public class SliderApiClient {
         private Call<SliderSearchResponse> getNowPlayingMovies(int page) {
             return Service.getTmdbApi().getNowPlayingMovies(
                     Credentials.API_KEY,
-                    page
+                    page,
+                    region
             );
         }
 
@@ -502,7 +507,8 @@ public class SliderApiClient {
         private Call<SliderSearchResponse> getPopularTv(int page) {
             return Service.getTmdbApi().getPopularTv(
                     Credentials.API_KEY,
-                    page
+                    page,
+                    region
             );
         }
 
@@ -558,7 +564,8 @@ public class SliderApiClient {
         private Call<SliderSearchResponse> getMoviesTrendingDay(int page) {
             return Service.getTmdbApi().getTrendingMoviesDay(
                     Credentials.API_KEY,
-                    page
+                    page,
+                    region
             );
         }
 
@@ -615,7 +622,8 @@ public class SliderApiClient {
         private Call<SliderSearchResponse> getTvTrendingDay(int page) {
             return Service.getTmdbApi().getTrendingTvDay(
                     Credentials.API_KEY,
-                    page
+                    page,
+                    region
             );
         }
 
@@ -672,7 +680,8 @@ public class SliderApiClient {
         private Call<SliderSearchResponse> getMoviesTrendingWeek(int page) {
             return Service.getTmdbApi().getTrendingMoviesWeek(
                     Credentials.API_KEY,
-                    page
+                    page,
+                    region
             );
         }
 
@@ -729,7 +738,8 @@ public class SliderApiClient {
         private Call<SliderSearchResponse> getTvTrendingWeek(int page) {
             return Service.getTmdbApi().getTrendingTvWeek(
                     Credentials.API_KEY,
-                    page
+                    page,
+                    region
             );
         }
 
@@ -783,7 +793,8 @@ public class SliderApiClient {
         private Call<SliderSearchResponse> getTvOnAir(int page) {
             return Service.getTmdbApi().getTvOnAir(
                     Credentials.API_KEY,
-                    page
+                    page,
+                    region
             );
         }
 
@@ -891,7 +902,8 @@ public class SliderApiClient {
         private Call<SliderSearchResponse> getTvTopRated(int page) {
             return Service.getTmdbApi().getTvTopRated(
                     Credentials.API_KEY,
-                    page
+                    page,
+                    region
             );
         }
 

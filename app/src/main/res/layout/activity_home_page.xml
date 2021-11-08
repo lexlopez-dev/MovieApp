@@ -1,403 +1,441 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomePageActivity"
-    android:background="@drawable/ic_gradient_background"
-    >
+    tools:context=".HomePageActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayoutHome"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:layout_marginTop="-130dp"
+        android:overScrollMode="never"
+        android:id="@+id/homeScrollView">
 
-        <ScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/scrollview_home">
+            tools:context=".HomePageActivity"
+            android:background="@drawable/ic_gradient_background"
+            android:id="@+id/constrainLayout"
+            >
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingBottom="65dp">
-
-                <!-- For Recycler View 1-->
-                <FrameLayout
+                <LinearLayout
+                    android:id="@+id/linearLayoutHome"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingBottom="65dp">
 
-                    <ImageView
-                        android:id="@+id/home_main_img"
+                    <!-- For Recycler View 1-->
+                    <FrameLayout
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/home_main_img"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/noimagefound"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:layout_gravity="bottom"
+                            android:background="@drawable/custom_gradient_bottom"/>
+                    </FrameLayout>
+
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/noimagefound"/>
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:text="Popular Movies"
+                        android:textColor="@color/white_gray"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:layout_gravity="bottom"
-                        android:background="@drawable/custom_gradient_bottom"/>
-                </FrameLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recView_popularMovies"
+                        android:tag="recViewAdapterPopularMovies"
+                        android:layout_width="409dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="-4dp"
+                        android:layout_marginEnd="1dp"
+                        android:orientation="horizontal"
+                        android:paddingBottom="2dp"
+                        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+                    <!-- For Recycler View 2-->
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Popular TV Shows"
+                        android:textColor="@color/white_gray"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/recView_popularMovies" />
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="4dp"
-                    android:text="Popular Movies"
-                    android:textColor="@color/white_gray"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recView_PopularTv"
+                        android:tag="recViewAdapterPopularTv"
+                        android:layout_width="409dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-4dp"
+                        android:layout_marginEnd="1dp"
+                        android:orientation="horizontal"
+                        android:paddingBottom="2dp"
+                        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2"
+                        app:layout_constraintVertical_bias="0.0" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recView_popularMovies"
-                    android:tag="recViewAdapterPopularMovies"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="-4dp"
-                    android:layout_marginEnd="1dp"
-                    android:orientation="horizontal"
-                    android:paddingBottom="2dp"
-                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+                    <!-- For Recycler View 3-->
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Movies Trending Today"
+                        android:textColor="@color/white_gray"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/recView_popularMovies" />
 
-                <!-- For Recycler View 2-->
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Popular TV Shows"
-                    android:textColor="@color/white_gray"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recView_popularMovies" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recView_MoviesTrendingToday"
+                        android:tag="recViewAdapterMoviesTrendingToday"
+                        android:layout_width="409dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-4dp"
+                        android:layout_marginEnd="1dp"
+                        android:orientation="horizontal"
+                        android:paddingBottom="2dp"
+                        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2"
+                        app:layout_constraintVertical_bias="0.0" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recView_PopularTv"
-                    android:tag="recViewAdapterPopularTv"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-4dp"
-                    android:layout_marginEnd="1dp"
-                    android:orientation="horizontal"
-                    android:paddingBottom="2dp"
-                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                    app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2"
-                    app:layout_constraintVertical_bias="0.0" />
+                    <!-- For Recycler View 3-->
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="TV Shows Trending Today"
+                        android:textColor="@color/white_gray"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/recView_popularMovies" />
 
-                <!-- For Recycler View 3-->
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Movies Trending Today"
-                    android:textColor="@color/white_gray"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recView_popularMovies" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recView_MoviesTrendingToday"
-                    android:tag="recViewAdapterMoviesTrendingToday"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-4dp"
-                    android:layout_marginEnd="1dp"
-                    android:orientation="horizontal"
-                    android:paddingBottom="2dp"
-                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                    app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <!-- For Recycler View 3-->
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="TV Shows Trending Today"
-                    android:textColor="@color/white_gray"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recView_popularMovies" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recView_TvTrendingToday"
-                    android:tag="recViewAdapterTvTrendingToday"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-4dp"
-                    android:layout_marginEnd="1dp"
-                    android:orientation="horizontal"
-                    android:paddingBottom="2dp"
-                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                    app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2"
-                    app:layout_constraintVertical_bias="0.0" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recView_TvTrendingToday"
+                        android:tag="recViewAdapterTvTrendingToday"
+                        android:layout_width="409dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-4dp"
+                        android:layout_marginEnd="1dp"
+                        android:orientation="horizontal"
+                        android:paddingBottom="2dp"
+                        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2"
+                        app:layout_constraintVertical_bias="0.0" />
 
 
-                <!-- For Recycler View 3-->
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Now Playing"
-                    android:textColor="@color/white_gray"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recView_popularMovies"/>
+                    <!-- For Recycler View 3-->
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Now Playing"
+                        android:textColor="@color/white_gray"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/recView_popularMovies"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recView_NowPlayingMovies"
-                    android:tag="recViewAdapterNowPlayingMovies"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-4dp"
-                    android:layout_marginEnd="1dp"
-                    android:orientation="horizontal"
-                    android:paddingBottom="2dp"
-                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                    app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2"
-                    app:layout_constraintVertical_bias="0.0"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recView_NowPlayingMovies"
+                        android:tag="recViewAdapterNowPlayingMovies"
+                        android:layout_width="409dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-4dp"
+                        android:layout_marginEnd="1dp"
+                        android:orientation="horizontal"
+                        android:paddingBottom="2dp"
+                        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2"
+                        app:layout_constraintVertical_bias="0.0"/>
 
-                <!-- For Recycler View 6-->
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Movies Trending This Week"
-                    android:textColor="@color/white_gray"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recView_popularMovies"/>
+                    <!-- For Recycler View 6-->
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Movies Trending This Week"
+                        android:textColor="@color/white_gray"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/recView_popularMovies"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recView_MoviesTrendingWeek"
-                    android:tag="recViewAdapterMoviesTrendingWeek"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-4dp"
-                    android:layout_marginEnd="1dp"
-                    android:orientation="horizontal"
-                    android:paddingBottom="2dp"
-                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                    app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2"
-                    app:layout_constraintVertical_bias="0.0"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recView_MoviesTrendingWeek"
+                        android:tag="recViewAdapterMoviesTrendingWeek"
+                        android:layout_width="409dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-4dp"
+                        android:layout_marginEnd="1dp"
+                        android:orientation="horizontal"
+                        android:paddingBottom="2dp"
+                        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2"
+                        app:layout_constraintVertical_bias="0.0"/>
 
-                <!-- For Recycler View 7-->
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="TV Shows Trending This Week"
-                    android:textColor="@color/white_gray"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recView_popularMovies"/>
+                    <!-- For Recycler View 7-->
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="TV Shows Trending This Week"
+                        android:textColor="@color/white_gray"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/recView_popularMovies"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recView_TvShowsTrendingWeek"
-                    android:tag="recViewAdapterTvShowsTrendingWeek"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-4dp"
-                    android:layout_marginEnd="1dp"
-                    android:orientation="horizontal"
-                    android:paddingBottom="2dp"
-                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                    app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2"
-                    app:layout_constraintVertical_bias="0.0"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recView_TvShowsTrendingWeek"
+                        android:tag="recViewAdapterTvShowsTrendingWeek"
+                        android:layout_width="409dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-4dp"
+                        android:layout_marginEnd="1dp"
+                        android:orientation="horizontal"
+                        android:paddingBottom="2dp"
+                        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2"
+                        app:layout_constraintVertical_bias="0.0"/>
 
-                <!-- For Recycler View 7-->
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="TV Shows On Air"
-                    android:textColor="@color/white_gray"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recView_popularMovies"/>
+                    <!-- For Recycler View 7-->
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="TV Shows On Air"
+                        android:textColor="@color/white_gray"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/recView_popularMovies"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recView_TvShowsOnAir"
-                    android:tag="recViewAdapterTvShowsOnAir"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-4dp"
-                    android:layout_marginEnd="1dp"
-                    android:orientation="horizontal"
-                    android:paddingBottom="2dp"
-                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                    app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2"
-                    app:layout_constraintVertical_bias="0.0"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recView_TvShowsOnAir"
+                        android:tag="recViewAdapterTvShowsOnAir"
+                        android:layout_width="409dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-4dp"
+                        android:layout_marginEnd="1dp"
+                        android:orientation="horizontal"
+                        android:paddingBottom="2dp"
+                        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2"
+                        app:layout_constraintVertical_bias="0.0"/>
 
-                <!-- For Recycler View 9-->
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Top-Rated Movies"
-                    android:textColor="@color/white_gray"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recView_popularMovies"/>
+                    <!-- For Recycler View 9-->
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Top-Rated Movies"
+                        android:textColor="@color/white_gray"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/recView_popularMovies"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recView_MoviesTopRated"
-                    android:tag="recViewAdapterMoviesTopRated"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-4dp"
-                    android:layout_marginEnd="1dp"
-                    android:orientation="horizontal"
-                    android:paddingBottom="2dp"
-                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                    app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2"
-                    app:layout_constraintVertical_bias="0.0"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recView_MoviesTopRated"
+                        android:tag="recViewAdapterMoviesTopRated"
+                        android:layout_width="409dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-4dp"
+                        android:layout_marginEnd="1dp"
+                        android:orientation="horizontal"
+                        android:paddingBottom="2dp"
+                        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2"
+                        app:layout_constraintVertical_bias="0.0"/>
 
-                <!-- For Recycler View 12-->
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Top-Rated TV Shows"
-                    android:textColor="@color/white_gray"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recView_popularMovies"/>
+                    <!-- For Recycler View 12-->
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Top-Rated TV Shows"
+                        android:textColor="@color/white_gray"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/recView_popularMovies"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recView_TvTopRated"
-                    android:tag="recViewAdapterTvTopRated"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-4dp"
-                    android:layout_marginEnd="1dp"
-                    android:orientation="horizontal"
-                    android:paddingBottom="2dp"
-                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                    app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2"
-                    app:layout_constraintVertical_bias="0.0"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recView_TvTopRated"
+                        android:tag="recViewAdapterTvTopRated"
+                        android:layout_width="409dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-4dp"
+                        android:layout_marginEnd="1dp"
+                        android:orientation="horizontal"
+                        android:paddingBottom="2dp"
+                        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2"
+                        app:layout_constraintVertical_bias="0.0"/>
 
-            </LinearLayout>
-        </ScrollView>
+                </LinearLayout>
 
 
-    </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="95dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:titleTextColor="@color/white_gray"
-        android:theme="@style/ThemeOverlay.AppCompat.Light"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:paddingTop="50dp"
-        android:background="#D5000000">
+        android:layout_height="130dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/Theme.MovieApp.Translucent"
+        android:background="@null"
+        android:elevation="0dp"
+        android:stateListAnimator="@null"
+        >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TV Shows"
-            android:textColor="@color/white"
-            android:textSize="16dp"
-            android:paddingVertical="7dp"
-            android:paddingHorizontal="20dp"
-            android:layout_marginLeft="25dp"
-            />
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed|enterAlways"
+            app:title="My Stuff"
+            android:id="@+id/collapsing_toolbar">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Movies"
-            android:textColor="@color/white"
-            android:textSize="16dp"
-            android:paddingVertical="7dp"
-            android:paddingHorizontal="20dp"
-            android:layout_marginLeft="8dp"
-            />
+            <ImageView
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_gravity="start"
+                android:scaleType="fitStart"
+                android:src="@mipmap/ic_launcher_foreground"
+                app:layout_collapseMode="none"
+                android:rotation="1"
+                android:background="@mipmap/ic_launcher_foreground"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="All Categories"
-            android:textColor="@color/white"
-            android:textSize="16dp"
-            android:paddingVertical="7dp"
-            android:paddingHorizontal="20dp"
-            android:layout_marginLeft="8dp"
-            />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_parallax"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="bottom"
+                app:layout_collapseMode="pin"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:titleTextColor="@color/white"
+                >
 
-    </androidx.appcompat.widget.Toolbar>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="7dp"
+                    android:text="TV Shows"
+                    android:textColor="@color/white"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:shadowRadius="8"
+                    android:shadowColor="@color/black"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="7dp"
+                    android:text="Movies"
+                    android:textColor="@color/white"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:shadowRadius="8"
+                    android:shadowColor="@color/black"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="7dp"
+                    android:text="All Categories"
+                    android:textColor="@color/white"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:shadowRadius="8"
+                    android:shadowColor="@color/black"/>
+
+            </androidx.appcompat.widget.Toolbar>
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_navigation_menu"
-        app:labelVisibilityMode="labeled"
         app:itemBackground="@color/dark_gray"
-        app:itemRippleColor="@color/dark_gray"/>
+        app:itemRippleColor="@color/dark_gray"
+        app:labelVisibilityMode="labeled"
+        android:layout_gravity="bottom|center"
+        app:menu="@menu/bottom_navigation_menu"
+        tools:layout_editor_absoluteX="0dp" />
 
-
-
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.L;
 import com.airbnb.lottie.LottieAnimationView;
@@ -27,9 +30,6 @@ public class LoginActivity extends AppCompatActivity {
     FloatingActionButton google, google2, google3;
     float v = 0;
 
-    //Buttons
-    AppCompatButton buttonGuest;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         tmdb = findViewById(R.id.logo_tmdb);
         pwrdBy = findViewById(R.id.pwrdBy);
 
-        buttonGuest = findViewById(R.id.guestButton);
+
 
        // lottieAnimationView = findViewById(R.id.lottieAnimationMovie);
 
@@ -87,4 +87,5 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
 }

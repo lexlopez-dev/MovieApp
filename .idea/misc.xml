@@ -13,27 +13,24 @@
         <entry key="..\:/Users/afora/AndroidStudioProjects/MovieApp/app/src/main/res/layout/activity_my_stuff.xml" value="0.24728260869565216" />
         <entry key="..\:/Users/afora/AndroidStudioProjects/MovieApp/app/src/main/res/layout/activity_search.xml" value="0.3255208333333333" />
         <entry key="..\:/Users/afora/AndroidStudioProjects/MovieApp/app/src/main/res/layout/activity_tv_details.xml" value="0.3255208333333333" />
+        <entry key="..\:/Users/afora/AndroidStudioProjects/MovieApp/app/src/main/res/layout/home_item_card.xml" value="0.625" />
+        <entry key="..\:/Users/afora/AndroidStudioProjects/MovieApp/app/src/main/res/layout/login_tab_fragment.xml" value="0.17395833333333333" />
         <entry key="..\:/Users/afora/AndroidStudioProjects/MovieApp/app/src/main/res/layout/movie_list_item.xml" value="0.17760416666666667" />
+        <entry key="..\:/Users/afora/AndroidStudioProjects/MovieApp/app/src/main/res/layout/search_item_card.xml" value="0.10195360195360195" />
         <entry key="..\:/Users/afora/AndroidStudioProjects/MovieApp/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.3255208333333333" />
         <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/drawable-anydpi/splash_gradient_background.xml" value="0.3546875" />
-        <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/drawable/button_bg.xml" value="0.47760416666666666" />
         <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/drawable/custom_gradient_bottom.xml" value="0.3546875" />
-        <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/drawable/edit_text_bg.xml" value="0.47760416666666666" />
         <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/drawable/ic_gradient_background.xml" value="0.3546875" />
         <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3546875" />
-        <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/drawable/ic_tmdbsquare.xml" value="0.47604166666666664" />
-        <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/drawable/view_bg.xml" value="0.47760416666666666" />
         <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/layout/activity_coming_soon.xml" value="0.1" />
         <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/layout/activity_home_page.xml" value="0.2945174444947893" />
-        <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/layout/activity_introductory.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/layout/activity_introductory.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/layout/activity_main.xml" value="0.540625" />
         <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/layout/activity_my_stuff.xml" value="0.2567191844300278" />
         <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/layout/activity_person_details.xml" value="0.2509057971014493" />
         <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/layout/activity_search.xml" value="0.2509057971014493" />
         <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/layout/home_item_card.xml" value="0.2509057971014493" />
-        <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/layout/login_tab_fragment.xml" value="0.46145833333333336" />
         <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/layout/search_item_card.xml" value="0.2509057971014493" />
-        <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/layout/signup_tab_fragment.xml" value="0.46145833333333336" />
         <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3546875" />
         <entry key="..\:/Users/alope/AndroidStudioProjects/MovieApp2/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3546875" />
       </map>

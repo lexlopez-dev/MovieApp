@@ -7,6 +7,8 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,14 +44,21 @@ public class LoginActivity extends AppCompatActivity {
         pwrdBy = findViewById(R.id.pwrdBy);
 
 
+        Animation aniFadeOut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_animation);
 
-       // lottieAnimationView = findViewById(R.id.lottieAnimationMovie);
+
+        //Slide away animation
 
         splashBg.animate().translationY(-3600).setDuration(500).setStartDelay(3000);
-        //logo.animate().translationY(2400).setDuration(1000).setStartDelay(2000);
         pwrdBy.animate().translationY(2400).setDuration(500).setStartDelay(3000);
         tmdb.animate().translationY(2400).setDuration(500).setStartDelay(3000);
-        //lottieAnimationView.animate().translationY(2400).setDuration(1000).setStartDelay(4000);
+
+//        //Fade out animation
+//        splashBg.startAnimation(aniFadeOut);
+//        pwrdBy.startAnimation(aniFadeOut);
+//        tmdb.startAnimation(aniFadeOut);
+
+
 
         //Login & Signup
         tabLayout = findViewById(R.id.tab_layout);

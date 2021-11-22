@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -164,6 +165,8 @@ public class HomePageActivity extends AppCompatActivity implements OnSliderListe
             }
         });
 
+
+        //ViewCompat.setNestedScrollingEnabled(recViewPopMovies, false);
 
 
     }

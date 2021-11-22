@@ -14,7 +14,7 @@ public class MovieModel implements Parcelable {
     * */
 
     private int movie_id;
-    private String original_title; //title
+    private String title; //title
     private String poster_path; //full poster
     private String release_date;
     private String backdrop_path; //small image
@@ -29,9 +29,9 @@ public class MovieModel implements Parcelable {
     private String homepage;
 
     //Constructor
-    public MovieModel(int movie_id, String original_title, String poster_path, String release_date, String backdrop_path, int[] genre_ids, String overview, float vote_average, int vote_count, int runtime, String media_type, String tagline, String homepage) {
+    public MovieModel(int movie_id, String title, String poster_path, String release_date, String backdrop_path, int[] genre_ids, String overview, float vote_average, int vote_count, int runtime, String media_type, String tagline, String homepage) {
         this.movie_id = movie_id;
-        this.original_title = original_title;
+        this.title = title;
         this.poster_path = poster_path;
         this.release_date = release_date;
         this.backdrop_path = backdrop_path;
@@ -50,7 +50,7 @@ public class MovieModel implements Parcelable {
     //Adding Parcelable implementation
     protected MovieModel(Parcel in) {
         movie_id = in.readInt();
-        original_title = in.readString();
+        title = in.readString();
         poster_path = in.readString();
         release_date = in.readString();
         backdrop_path = in.readString();
@@ -84,7 +84,7 @@ public class MovieModel implements Parcelable {
     }
 
     public String getOriginal_title() {
-        return original_title;
+        return title;
     }
 
     public String getPoster_path() {
@@ -153,7 +153,7 @@ public class MovieModel implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(movie_id);
-        parcel.writeString(original_title);
+        parcel.writeString(title);
         parcel.writeString(poster_path);
         parcel.writeString(release_date);
         parcel.writeString(backdrop_path);

@@ -4,17 +4,17 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class TvModel implements Parcelable {
-    private String backdrop_path, first_air_date, last_air_date, original_name, overview, poster_path;
+    private String backdrop_path, first_air_date, last_air_date, name, overview, poster_path;
     private int tv_id, number_of_episodes, number_of_seasons, vote_count;
     private float vote_average, popularity;
 
     private Season[] seasons;
 
-    public TvModel(String backdrop_path, String first_air_date, String last_air_date, String original_name, String overview, String poster_path, int tv_id, int number_of_episodes, int number_of_seasons, float popularity, int vote_count, float vote_average) {
+    public TvModel(String backdrop_path, String first_air_date, String last_air_date, String name, String overview, String poster_path, int tv_id, int number_of_episodes, int number_of_seasons, float popularity, int vote_count, float vote_average) {
         this.backdrop_path = backdrop_path;
         this.first_air_date = first_air_date;
         this.last_air_date = last_air_date;
-        this.original_name = original_name;
+        this.name = name;
         this.overview = overview;
         this.poster_path = poster_path;
         this.tv_id = tv_id;
@@ -30,7 +30,7 @@ public class TvModel implements Parcelable {
         backdrop_path = in.readString();
         first_air_date = in.readString();
         last_air_date = in.readString();
-        original_name = in.readString();
+        name = in.readString();
         overview = in.readString();
         poster_path = in.readString();
         tv_id = in.readInt();
@@ -66,7 +66,7 @@ public class TvModel implements Parcelable {
     }
 
     public String getOriginal_name() {
-        return original_name;
+        return name;
     }
 
     public String getOverview() {
@@ -120,7 +120,7 @@ public class TvModel implements Parcelable {
         parcel.writeString(backdrop_path);
         parcel.writeString(first_air_date);
         parcel.writeString(last_air_date);
-        parcel.writeString(original_name);
+        parcel.writeString(name);
         parcel.writeString(overview);
         parcel.writeString(poster_path);
         parcel.writeInt(tv_id);

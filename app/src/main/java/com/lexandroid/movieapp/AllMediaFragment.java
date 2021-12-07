@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -51,6 +52,8 @@ public class AllMediaFragment extends Fragment implements OnSliderListener{
     private SliderListViewModel popMoviesSliderViewModel, nowPlayingMoviesSliderViewModel, popTvSliderViewModel, moviesTrendDaySliderViewModel, tvTrendDaySliderViewModel, moviesTrendWeekSliderViewModel, tvTrendWeekSliderViewModel, tvOnAirSliderViewModel, moviesTopSliderViewModel, tvTopSliderViewModel;
     private LinearLayoutManager HorizontalLayout, HorizontalLayout2, HorizontalLayout3, HorizontalLayout4, HorizontalLayout5, HorizontalLayout6, HorizontalLayout7, HorizontalLayout8, HorizontalLayout9, HorizontalLayout10, HorizontalLayout11;
 
+    private TextView txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8, txt9, txt10;
+
     private ImageView mainImg;
 
     NestedScrollView nestedScrollView;
@@ -60,7 +63,7 @@ public class AllMediaFragment extends Fragment implements OnSliderListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_tv_shows, container, false);
+        view = inflater.inflate(R.layout.fragment_all_media, container, false);
 
         recViewPopMovies = view.findViewById(R.id.recView_popularMovies);
         recViewNowPlayingMovies = view.findViewById(R.id.recView_NowPlayingMovies);
@@ -83,6 +86,8 @@ public class AllMediaFragment extends Fragment implements OnSliderListener{
         tvOnAirSliderViewModel = new ViewModelProvider(this).get(SliderListViewModel.class);
         moviesTopSliderViewModel = new ViewModelProvider(this).get(SliderListViewModel.class);
         tvTopSliderViewModel = new ViewModelProvider(this).get(SliderListViewModel.class);
+
+        txt1 = view.findViewById(R.id.textView);
 
         mainImg = view.findViewById(R.id.home_main_img);
 
@@ -267,12 +272,6 @@ public class AllMediaFragment extends Fragment implements OnSliderListener{
                 LinearLayoutManager.HORIZONTAL,
                 false);
 
-        HorizontalLayout5
-                = new LinearLayoutManager(
-                getActivity(),
-                LinearLayoutManager.HORIZONTAL,
-                false);
-
         HorizontalLayout6
                 = new LinearLayoutManager(
                 getActivity(),
@@ -310,7 +309,7 @@ public class AllMediaFragment extends Fragment implements OnSliderListener{
                 false);
 
 
-        sliderRecViewAdapterPopMovies = new SliderRecyclerView((OnSliderListener) this);
+        sliderRecViewAdapterPopMovies = new SliderRecyclerView( this);
         sliderRecViewAdapterNowPlayingMovies = new SliderRecyclerView(this);
         sliderRecViewAdapterPopTv = new SliderRecyclerView(this);
         sliderRecViewAdapterMoviesTrendingDay = new SliderRecyclerView(this);
@@ -336,7 +335,6 @@ public class AllMediaFragment extends Fragment implements OnSliderListener{
         recViewNowPlayingMovies.setLayoutManager(HorizontalLayout2);
         recViewPopTv.setLayoutManager(HorizontalLayout3);
         recViewMoviesTrendingDay.setLayoutManager(HorizontalLayout4);
-        recViewMoviesTrendingDay.setLayoutManager(HorizontalLayout5);
         recViewTvTrendingDay.setLayoutManager(HorizontalLayout6);
         recViewMoviesTrendingWeek.setLayoutManager(HorizontalLayout7);
         recViewTvTrendingWeek.setLayoutManager(HorizontalLayout8);

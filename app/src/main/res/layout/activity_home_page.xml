@@ -9,8 +9,7 @@
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="10dp"/>
+        android:layout_height="match_parent" />
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -60,7 +59,7 @@
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="7dp"
                     android:text="All"
-                    android:textColor="@color/white"
+                    android:textColor="#D3D3D3"
                     android:textSize="16dp"
                     android:textStyle="bold"
                     android:shadowRadius="8"
@@ -77,7 +76,7 @@
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="7dp"
                     android:text="TV Shows"
-                    android:textColor="@color/white"
+                    android:textColor="#FFD3D3D3"
                     android:textSize="16dp"
                     android:textStyle="bold"
                     android:shadowRadius="8"
@@ -94,7 +93,7 @@
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="7dp"
                     android:text="Movies"
-                    android:textColor="@color/white"
+                    android:textColor="#FFD3D3D3"
                     android:textSize="16dp"
                     android:textStyle="bold"
                     android:shadowRadius="8"

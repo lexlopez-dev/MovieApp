@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewParent;
 import android.view.Window;
@@ -19,6 +20,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,8 +69,6 @@ public class HomePageActivity extends AppCompatActivity {
     //TextView Buttons for Fragments
     TextView tvShowsBtn, moviesBtn, allBtn;
 
-    //Before we run our app, we need to add the Network Security config
-
     NestedScrollView nestedScrollView;
 
     @Override
@@ -105,9 +105,15 @@ public class HomePageActivity extends AppCompatActivity {
         });
 
 
+
         replaceFragment(new AllMediaFragment());
 
         nestedScrollView = findViewById(R.id.homeScrollView);
+
+
+        //****** Btn Listener **********
+
+
 
         //********* Bottom Nav ********************
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -137,11 +143,6 @@ public class HomePageActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
-        //ViewCompat.setNestedScrollingEnabled(recViewPopMovies, false);
-
-
     }
 
 
@@ -155,7 +156,6 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
 
-    //Navigation
-}
 
-// https://api.themoviedb.org/3/movie/343611?api_key={api_key}
+
+}

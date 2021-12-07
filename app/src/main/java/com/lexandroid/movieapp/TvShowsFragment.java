@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -54,6 +55,8 @@ public class TvShowsFragment extends Fragment implements OnSliderListener{
 
     private ImageView mainImg;
 
+    private TextView txt1, txt2, txt3, txt4, txt5;
+
     NestedScrollView nestedScrollView;
 
     View view;
@@ -63,29 +66,31 @@ public class TvShowsFragment extends Fragment implements OnSliderListener{
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_tv_shows, container, false);
 
-        recViewPopMovies = view.findViewById(R.id.recView_popularMovies);
-        recViewNowPlayingMovies = view.findViewById(R.id.recView_NowPlayingMovies);
         recViewPopTv = view.findViewById(R.id.recView_PopularTv);
-        recViewMoviesTrendingDay = view.findViewById(R.id.recView_MoviesTrendingToday);
         recViewTvTrendingDay = view.findViewById(R.id.recView_TvTrendingToday);
-        recViewMoviesTrendingWeek = view.findViewById(R.id.recView_MoviesTrendingWeek);
         recViewTvTrendingWeek = view.findViewById(R.id.recView_TvShowsTrendingWeek);
         recViewTvOnAir = view.findViewById(R.id.recView_TvShowsOnAir);
-        recViewMoviesTopRated = view.findViewById(R.id.recView_MoviesTopRated);
         recViewTvTopRated = view.findViewById(R.id.recView_TvTopRated);
 
-        popMoviesSliderViewModel = new ViewModelProvider(this).get(SliderListViewModel.class);
-        nowPlayingMoviesSliderViewModel = new ViewModelProvider(this).get(SliderListViewModel.class);
         popTvSliderViewModel = new ViewModelProvider(this).get(SliderListViewModel.class);
-        moviesTrendDaySliderViewModel = new ViewModelProvider(this).get(SliderListViewModel.class);
         tvTrendDaySliderViewModel = new ViewModelProvider(this).get(SliderListViewModel.class);
-        moviesTrendWeekSliderViewModel = new ViewModelProvider(this).get(SliderListViewModel.class);
         tvTrendWeekSliderViewModel = new ViewModelProvider(this).get(SliderListViewModel.class);
         tvOnAirSliderViewModel = new ViewModelProvider(this).get(SliderListViewModel.class);
-        moviesTopSliderViewModel = new ViewModelProvider(this).get(SliderListViewModel.class);
         tvTopSliderViewModel = new ViewModelProvider(this).get(SliderListViewModel.class);
 
         mainImg = view.findViewById(R.id.home_main_img);
+
+        txt1 = view.findViewById(R.id.textViewTV);
+        txt2 = view.findViewById(R.id.textViewTV4);
+        txt3 = view.findViewById(R.id.textViewTV2);
+        txt4 = view.findViewById(R.id.textViewTV7);
+        txt5 = view.findViewById(R.id.textViewTV10);
+
+        txt1.setVisibility(View.GONE);
+        txt2.setVisibility(View.GONE);
+        txt3.setVisibility(View.GONE);
+        txt4.setVisibility(View.GONE);
+        txt5.setVisibility(View.GONE);
 
 
         nestedScrollView = view.findViewById(R.id.homeScrollView);
@@ -95,15 +100,10 @@ public class TvShowsFragment extends Fragment implements OnSliderListener{
         ObserveAllSliderData();
 
         //Getting the data for popular
-        popMoviesSliderViewModel.searchPopularMoviesApi(1);
-        nowPlayingMoviesSliderViewModel.searchNowPlayingMoviesApi(1);
         popTvSliderViewModel.searchPopularTv(1);
-        moviesTrendDaySliderViewModel.searchMoviesTrendingDay(2);
         tvTrendDaySliderViewModel.searchTvTrendingDay(2);
-        moviesTrendWeekSliderViewModel.searchMoviesTrendingWeek(3);
         tvTrendWeekSliderViewModel.searchTvTrendingWeek(3);
         tvOnAirSliderViewModel.searchTvOnAir(1);
-        moviesTopSliderViewModel.searchMoviesTopRated(1);
         tvTopSliderViewModel.searchTvTopRated(1);
         return view;
     }
@@ -126,31 +126,7 @@ public class TvShowsFragment extends Fragment implements OnSliderListener{
     }
 
     private void ObserveAllSliderData() {
-        popMoviesSliderViewModel.getPopularMovies().observe(getViewLifecycleOwner(), new Observer<List<SearchModel>>() {
-            @Override
-            public void onChanged(List<SearchModel> searchModels) {
-                if(searchModels != null) {
-                    for (SearchModel searchModel: searchModels) {
-                        sliderRecViewAdapterPopMovies.setmMovies(searchModels, "sliderRecyclerViewAdapter");
-                    }
-                    Log.d("Debug", "MAIN IMG Details: " + sliderRecViewAdapterPopMovies.getSelected(0).getPoster_path());
-                    String imgUrl = sliderRecViewAdapterPopMovies.getSelected(0).getPoster_path();
-                    GetMainImg(imgUrl);
-                }
-            }
-        });
 
-
-        nowPlayingMoviesSliderViewModel.getNowPlayingMovies().observe(getViewLifecycleOwner(), new Observer<List<SearchModel>>() {
-            @Override
-            public void onChanged(List<SearchModel> searchModels) {
-                if(searchModels != null) {
-                    for (SearchModel searchModel: searchModels) {
-                        sliderRecViewAdapterNowPlayingMovies.setmMovies(searchModels, "sliderRecyclerViewAdapter2");
-                    }
-                }
-            }
-        });
 
         popTvSliderViewModel.getPopularTv().observe(getViewLifecycleOwner(), new Observer<List<SearchModel>>() {
             @Override
@@ -159,17 +135,8 @@ public class TvShowsFragment extends Fragment implements OnSliderListener{
                     for (SearchModel searchModel: searchModels) {
                         sliderRecViewAdapterPopTv.setmMovies(searchModels, "sliderRecyclerViewAdapter2");
                     }
-                }
-            }
-        });
-
-        moviesTrendDaySliderViewModel.getMoviesTrendingDay().observe(getViewLifecycleOwner(), new Observer<List<SearchModel>>() {
-            @Override
-            public void onChanged(List<SearchModel> searchModels) {
-                if(searchModels != null) {
-                    for (SearchModel searchModel: searchModels) {
-                        sliderRecViewAdapterMoviesTrendingDay.setmMovies(searchModels, "sliderRecyclerViewAdapter2");
-                    }
+                    String imgUrl = sliderRecViewAdapterPopTv.getSelected(0).getPoster_path();
+                    GetMainImg(imgUrl);
                 }
             }
         });
@@ -180,17 +147,6 @@ public class TvShowsFragment extends Fragment implements OnSliderListener{
                 if(searchModels != null) {
                     for (SearchModel searchModel: searchModels) {
                         sliderRecViewAdapterTvTrendingDay.setmMovies(searchModels, "sliderRecyclerViewAdapter2");
-                    }
-                }
-            }
-        });
-
-        moviesTrendWeekSliderViewModel.getMoviesTrendingWeek().observe(getViewLifecycleOwner(), new Observer<List<SearchModel>>() {
-            @Override
-            public void onChanged(List<SearchModel> searchModels) {
-                if(searchModels != null) {
-                    for (SearchModel searchModel: searchModels) {
-                        sliderRecViewAdapterMoviesTrendingWeek.setmMovies(searchModels, "sliderRecyclerViewAdapter2");
                     }
                 }
             }
@@ -218,17 +174,6 @@ public class TvShowsFragment extends Fragment implements OnSliderListener{
             }
         });
 
-        moviesTopSliderViewModel.getMoviesTopRated().observe(getViewLifecycleOwner(), new Observer<List<SearchModel>>() {
-            @Override
-            public void onChanged(List<SearchModel> searchModels) {
-                if(searchModels != null) {
-                    for (SearchModel searchModel: searchModels) {
-                        sliderRecViewAdapterMoviesTopRated.setmMovies(searchModels, "sliderRecyclerViewAdapter2");
-                    }
-                }
-            }
-        });
-
         tvTopSliderViewModel.getTvTopRated().observe(getViewLifecycleOwner(), new Observer<List<SearchModel>>() {
             @Override
             public void onChanged(List<SearchModel> searchModels) {
@@ -244,31 +189,7 @@ public class TvShowsFragment extends Fragment implements OnSliderListener{
     // ** 5 - Initializing recyclerView & adding data
     private void ConfigureRecyclerView() {
 
-        HorizontalLayout
-                = new LinearLayoutManager(
-                getActivity(),
-                LinearLayoutManager.HORIZONTAL,
-                false);
-
-        HorizontalLayout2
-                = new LinearLayoutManager(
-                getActivity(),
-                LinearLayoutManager.HORIZONTAL,
-                false);
-
         HorizontalLayout3
-                = new LinearLayoutManager(
-                getActivity(),
-                LinearLayoutManager.HORIZONTAL,
-                false);
-
-        HorizontalLayout4
-                = new LinearLayoutManager(
-                getActivity(),
-                LinearLayoutManager.HORIZONTAL,
-                false);
-
-        HorizontalLayout5
                 = new LinearLayoutManager(
                 getActivity(),
                 LinearLayoutManager.HORIZONTAL,
@@ -280,19 +201,8 @@ public class TvShowsFragment extends Fragment implements OnSliderListener{
                 LinearLayoutManager.HORIZONTAL,
                 false);
 
-        HorizontalLayout7
-                = new LinearLayoutManager(
-                getActivity(),
-                LinearLayoutManager.HORIZONTAL,
-                false);
 
         HorizontalLayout8
-                = new LinearLayoutManager(
-                getActivity(),
-                LinearLayoutManager.HORIZONTAL,
-                false);
-
-        HorizontalLayout9
                 = new LinearLayoutManager(
                 getActivity(),
                 LinearLayoutManager.HORIZONTAL,
@@ -311,38 +221,22 @@ public class TvShowsFragment extends Fragment implements OnSliderListener{
                 false);
 
 
-        sliderRecViewAdapterPopMovies = new SliderRecyclerView((OnSliderListener) this);
-        sliderRecViewAdapterNowPlayingMovies = new SliderRecyclerView(this);
         sliderRecViewAdapterPopTv = new SliderRecyclerView(this);
-        sliderRecViewAdapterMoviesTrendingDay = new SliderRecyclerView(this);
         sliderRecViewAdapterTvTrendingDay = new SliderRecyclerView(this);
-        sliderRecViewAdapterMoviesTrendingWeek = new SliderRecyclerView(this);
         sliderRecViewAdapterTvTrendingWeek = new SliderRecyclerView(this);
         sliderRecViewAdapterTvOnAir = new SliderRecyclerView(this);
-        sliderRecViewAdapterMoviesTopRated = new SliderRecyclerView(this);
         sliderRecViewAdapterTvTopRated = new SliderRecyclerView(this);
 
-        recViewPopMovies.setAdapter(sliderRecViewAdapterPopMovies);
-        recViewNowPlayingMovies.setAdapter(sliderRecViewAdapterNowPlayingMovies);
         recViewPopTv.setAdapter(sliderRecViewAdapterPopTv);
-        recViewMoviesTrendingDay.setAdapter(sliderRecViewAdapterMoviesTrendingDay);
         recViewTvTrendingDay.setAdapter(sliderRecViewAdapterTvTrendingDay);
-        recViewMoviesTrendingWeek.setAdapter(sliderRecViewAdapterMoviesTrendingWeek);
         recViewTvTrendingWeek.setAdapter(sliderRecViewAdapterTvTrendingWeek);
         recViewTvOnAir.setAdapter(sliderRecViewAdapterTvOnAir);
-        recViewMoviesTopRated.setAdapter(sliderRecViewAdapterMoviesTopRated);
         recViewTvTopRated.setAdapter(sliderRecViewAdapterTvTopRated);
 
-        recViewPopMovies.setLayoutManager(HorizontalLayout);
-        recViewNowPlayingMovies.setLayoutManager(HorizontalLayout2);
         recViewPopTv.setLayoutManager(HorizontalLayout3);
-        recViewMoviesTrendingDay.setLayoutManager(HorizontalLayout4);
-        recViewMoviesTrendingDay.setLayoutManager(HorizontalLayout5);
         recViewTvTrendingDay.setLayoutManager(HorizontalLayout6);
-        recViewMoviesTrendingWeek.setLayoutManager(HorizontalLayout7);
         recViewTvTrendingWeek.setLayoutManager(HorizontalLayout8);
         recViewTvOnAir.setLayoutManager(HorizontalLayout11);
-        recViewMoviesTopRated.setLayoutManager(HorizontalLayout9);
         recViewTvTopRated.setLayoutManager(HorizontalLayout10);
 
     }
@@ -383,85 +277,24 @@ public class TvShowsFragment extends Fragment implements OnSliderListener{
 
         SearchModel clickedTile = currentSlider.getSelected(position);
 
-        if(clickedTile.getRelease_date() != null) {
-            Log.d("Debug", "Made it inside onTileClick inside if statement");
-            Intent intent = new Intent(getActivity(), MovieDetails.class);
-            getRetrofitResponseAccordingToID(clickedTile.getId(), new GetRetrofitResponseAccordingToID() {
-                @Override
-                public void onSuccess(@NonNull MovieModel movieModel) {
-                    intent.putExtra("movie", (Parcelable) movieModel);
-                    startActivity(intent);
-                }
-
-                @Override
-                public void onError(@NonNull Throwable throwable) {
-                    Log.d("Debug", "Error: Throwable = " + throwable);
-                }
-            });
-        } else {
-            Log.d("Debug", "TV WAS CLICKED");
-            Intent intentTv = new Intent(getActivity(), TvDetails.class);
-            getRetrofitResponseAccordingToTvID(clickedTile.getId(), new GetRetrofitResponseAccordingToTvID() {
-                @Override
-                public void onSuccess(@NonNull TvModel tvModel) {
-                    intentTv.putExtra("tv", (Parcelable) tvModel);
-                    startActivity(intentTv);
-                }
-
-                @Override
-                public void onError(@NonNull Throwable throwable) {
-                    Log.d("Debug", "Error: Throwable = " + throwable);
-                }
-            });
-        }
-    }
-
-
-
-
-    public interface GetRetrofitResponseAccordingToID {
-        void onSuccess(@NonNull MovieModel movieModel);
-
-        void onError(@NonNull Throwable throwable);
-
-    }
-
-    private void getRetrofitResponseAccordingToID(int id, @Nullable GetRetrofitResponseAccordingToID callbacks) {
-        Log.v("Debug", "Able to start getRetrofitResponseAccordingToID");
-
-        TmdbApi tmdbApi = Service.getTmdbApi();
-
-        Call<MovieModel> responseCall = tmdbApi
-                .getSpecificMovie(
-                        id,
-                        Credentials.API_KEY
-                );
-
-        Log.v("Debug", "Able to get response call from movieApi.getMovie");
-
-        responseCall.enqueue(new Callback<MovieModel>() {
+        Log.d("Debug", "TV WAS CLICKED");
+        Intent intentTv = new Intent(getActivity(), TvDetails.class);
+        getRetrofitResponseAccordingToTvID(clickedTile.getId(), new GetRetrofitResponseAccordingToTvID() {
             @Override
-            public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {
-                if (response.code() == 200) {
-                    MovieModel clickedMovieResult = response.body();
-                    callbacks.onSuccess(clickedMovieResult);
-                    Log.v("Debug", "The Response:" + clickedMovieResult.getOriginal_title());
-                } else {
-                    try {
-                        Log.v("Debug", "Error: " + response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
+            public void onSuccess(@NonNull TvModel tvModel) {
+                intentTv.putExtra("tv", (Parcelable) tvModel);
+                startActivity(intentTv);
             }
 
-
             @Override
-            public void onFailure(Call<MovieModel> call, Throwable t) {
-
+            public void onError(@NonNull Throwable throwable) {
+                Log.d("Debug", "Error: Throwable = " + throwable);
             }
         });
+
     }
+
+
 
     public interface GetRetrofitResponseAccordingToTvID {
         void onSuccess(@NonNull TvModel tvModel);

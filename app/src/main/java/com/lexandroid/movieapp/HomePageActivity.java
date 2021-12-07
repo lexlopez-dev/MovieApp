@@ -104,17 +104,9 @@ public class HomePageActivity extends AppCompatActivity {
             }
         });
 
-
-
         replaceFragment(new AllMediaFragment());
 
         nestedScrollView = findViewById(R.id.homeScrollView);
-
-
-        //****** Btn Listener **********
-
-
-
         //********* Bottom Nav ********************
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 

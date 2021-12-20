@@ -15,9 +15,9 @@
         android:enabled="true"
         android:icon="@drawable/ic_search"
         android:title="@string/search"/>
-    <item
-        android:id="@+id/my_stuff"
-        android:enabled="true"
-        android:icon="@drawable/ic_my_stuff"
-        android:title="@string/my_stuff"/>
+<!--    <item-->
+<!--        android:id="@+id/my_stuff"-->
+<!--        android:enabled="true"-->
+<!--        android:icon="@drawable/ic_my_stuff"-->
+<!--        android:title="@string/my_stuff"/>-->
 </menu>

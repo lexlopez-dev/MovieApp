@@ -127,10 +127,10 @@ public class HomePageActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(),SearchActivity.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.my_stuff:
-                        startActivity(new Intent(getApplicationContext(),MyStuffActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
+//                    case R.id.my_stuff:
+//                        startActivity(new Intent(getApplicationContext(),MyStuffActivity.class));
+//                        overridePendingTransition(0,0);
+//                        return true;
                 }
                 return false;
             }

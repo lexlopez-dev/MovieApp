@@ -40,11 +40,20 @@ public class ComingSoonRecyclerView extends RecyclerView.Adapter<RecyclerView.Vi
 //        ((MovieViewHolder)holder).category.setText(mMovies.get(position).ge());
 //       ((MovieViewHolder)holder).title.setText(mMovies.get(position).getOriginal_title());
 
-        Glide.with(holder.itemView.getContext())
-                .asBitmap()
-                .load(Credentials.IMG_URL + mResults.get(position).getPoster_path())
-                .into(((SearchViewHolder) holder).imageView);
+        if(mResults.get(position).getPoster_path() == null) {
+            Glide.with(holder.itemView.getContext())
+                    .asBitmap()
+                    .load(R.drawable.noimagefound)
+                    .into(((SearchViewHolder)holder).imageView);
+        }else {
+            Glide.with(holder.itemView.getContext())
+                    .asBitmap()
+                    .load(Credentials.IMG_URL + mResults.get(position).getPoster_path())
+                    .into(((SearchViewHolder) holder).imageView);
+        }
+
     }
+
 
 
     @Override

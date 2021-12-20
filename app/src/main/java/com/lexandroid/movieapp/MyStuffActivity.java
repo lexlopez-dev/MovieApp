@@ -26,7 +26,7 @@ public class MyStuffActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
-        navigation.setSelectedItemId(R.id.my_stuff);
+        //navigation.setSelectedItemId(R.id.my_stuff);
 
 
         navigation.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
@@ -45,8 +45,8 @@ public class MyStuffActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(),SearchActivity.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.my_stuff:
-                        return true;
+//                    case R.id.my_stuff:
+//                        return true;
                 }
                 return false;
             }

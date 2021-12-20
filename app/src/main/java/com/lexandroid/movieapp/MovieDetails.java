@@ -65,7 +65,7 @@ public class MovieDetails extends AppCompatActivity {
 
 
             Glide.with(this)
-                    .load(Credentials.IMG_URL + movieModel.getPoster_path())
+                    .load(Credentials.BEST_IMG_URL + movieModel.getPoster_path())
                     .into(imageViewDetails);
         }
     }

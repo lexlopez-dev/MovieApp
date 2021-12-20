@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/imageView_tv"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -47,7 +47,7 @@
         android:drawableLeft="@drawable/ic_play"
         android:gravity="left |center_vertical"
         android:paddingLeft="5dp"
-        android:text="Play"
+        android:text="Play trailer"
         android:textAllCaps="false"
         android:textColor="#E6DFDF"
 

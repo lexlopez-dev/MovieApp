@@ -6,6 +6,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.airbnb.lottie.L;
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.lexandroid.movieapp.login.LoginAdapter;
 
@@ -94,6 +96,22 @@ public class LoginActivity extends AppCompatActivity {
 
         tabLayout.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(3100).start();
 
+
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Toast.makeText(LoginActivity.this, "Please Continue as Guest", Toast.LENGTH_LONG).show();
+                Snackbar snackbar = Snackbar.make(tabLayout, "Please Continue As Guest", Snackbar.LENGTH_INDEFINITE).setAction("OKAY", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+                snackbar.show();
+            }
+        }, 5000);
 
     }
 

@@ -65,7 +65,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recView_popularMovies"
                     android:tag="recViewAdapterPopularMovies"
-                    android:layout_width="409dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="1dp"
                     android:layout_marginTop="-4dp"
@@ -76,7 +76,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView"/>
 
                 <!-- For Recycler View 2-->
                 <TextView
@@ -94,7 +94,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recView_PopularTv"
                     android:tag="recViewAdapterPopularTv"
-                    android:layout_width="409dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-4dp"
                     android:layout_marginEnd="1dp"
@@ -104,7 +104,7 @@
                     app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView2"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintVertical_bias="0.0"/>
 
                 <!-- For Recycler View 3-->
                 <TextView
@@ -122,7 +122,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recView_MoviesTrendingToday"
                     android:tag="recViewAdapterMoviesTrendingToday"
-                    android:layout_width="409dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-4dp"
                     android:layout_marginEnd="1dp"
@@ -132,7 +132,7 @@
                     app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView2"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintVertical_bias="0.0"/>
 
                 <!-- For Recycler View 3-->
                 <TextView
@@ -150,7 +150,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recView_TvTrendingToday"
                     android:tag="recViewAdapterTvTrendingToday"
-                    android:layout_width="409dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-4dp"
                     android:layout_marginEnd="1dp"
@@ -160,7 +160,7 @@
                     app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView2"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintVertical_bias="0.0"/>
 
 
                 <!-- For Recycler View 3-->
@@ -179,7 +179,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recView_NowPlayingMovies"
                     android:tag="recViewAdapterNowPlayingMovies"
-                    android:layout_width="409dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-4dp"
                     android:layout_marginEnd="1dp"
@@ -207,7 +207,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recView_MoviesTrendingWeek"
                     android:tag="recViewAdapterMoviesTrendingWeek"
-                    android:layout_width="409dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-4dp"
                     android:layout_marginEnd="1dp"
@@ -235,7 +235,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recView_TvShowsTrendingWeek"
                     android:tag="recViewAdapterTvShowsTrendingWeek"
-                    android:layout_width="409dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-4dp"
                     android:layout_marginEnd="1dp"
@@ -263,7 +263,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recView_TvShowsOnAir"
                     android:tag="recViewAdapterTvShowsOnAir"
-                    android:layout_width="409dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-4dp"
                     android:layout_marginEnd="1dp"
@@ -291,7 +291,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recView_MoviesTopRated"
                     android:tag="recViewAdapterMoviesTopRated"
-                    android:layout_width="409dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-4dp"
                     android:layout_marginEnd="1dp"
@@ -319,7 +319,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recView_TvTopRated"
                     android:tag="recViewAdapterTvTopRated"
-                    android:layout_width="409dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-4dp"
                     android:layout_marginEnd="1dp"

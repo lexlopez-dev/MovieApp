@@ -1,6 +1,7 @@
 package com.lexandroid.movieapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -17,10 +19,21 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.lexandroid.movieapp.adapters.ComingSoonRecyclerView;
 import com.lexandroid.movieapp.adapters.OnSearchListener;
 import com.lexandroid.movieapp.adapters.SearchRecyclerView;
+import com.lexandroid.movieapp.models.MovieModel;
+import com.lexandroid.movieapp.models.PersonModel;
 import com.lexandroid.movieapp.models.SearchModel;
+import com.lexandroid.movieapp.models.tv.TvModel;
+import com.lexandroid.movieapp.request.Service;
+import com.lexandroid.movieapp.utils.Credentials;
+import com.lexandroid.movieapp.utils.TmdbApi;
 import com.lexandroid.movieapp.viewmodels.SearchListViewModel;
 
+import java.io.IOException;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ComingSoonActivity extends AppCompatActivity implements OnSearchListener {
 
@@ -65,10 +78,10 @@ public class ComingSoonActivity extends AppCompatActivity implements OnSearchLis
                         startActivity(new Intent(getApplicationContext(),SearchActivity.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.my_stuff:
-                        startActivity(new Intent(getApplicationContext(),MyStuffActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
+//                    case R.id.my_stuff:
+//                        startActivity(new Intent(getApplicationContext(),MyStuffActivity.class));
+//                        overridePendingTransition(0,0);
+//                        return true;
                 }
                 return false;
             }
@@ -121,9 +134,69 @@ public class ComingSoonActivity extends AppCompatActivity implements OnSearchLis
 
     }
 
+
     @Override
     public void onSearchClick(int position) {
+        Log.d("Debug", "Sending this id to search: " + searchUpcomingRecyclerViewAdapter.getSelected(position).getId());
+        Intent intent = new Intent(this, MovieDetails.class);
+        getRetrofitResponseAccordingToID(searchUpcomingRecyclerViewAdapter.getSelected(position).getId(), new ComingSoonActivity.GetRetrofitResponseAccordingToID() {
+            @Override
+            public void onSuccess(@NonNull MovieModel movieModel) {
+                intent.putExtra("movie", (Parcelable) movieModel);
+                startActivity(intent);
+            }
 
+            @Override
+            public void onError(@NonNull Throwable throwable) {
+                Log.d("Debug", "Error: Throwable = " + throwable);
+            }
+        });
+    }
+
+    public interface GetRetrofitResponseAccordingToID {
+        void onSuccess(@NonNull MovieModel movieModel);
+
+        void onError(@NonNull Throwable throwable);
+
+    }
+
+    private void getRetrofitResponseAccordingToID(int id, @Nullable ComingSoonActivity.GetRetrofitResponseAccordingToID callbacks) {
+        Log.v("Debug", "Able to start getRetrofitResponseAccordingToID");
+
+        TmdbApi tmdbApi = Service.getTmdbApi();
+
+        Call<MovieModel> responseCall = tmdbApi
+                .getSpecificMovie(
+                        id,
+                        Credentials.API_KEY
+                );
+
+        Log.v("Debug", "Able to get response call from movieApi.getMovie");
+
+        responseCall.enqueue(new Callback<MovieModel>() {
+            @Override
+            public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {
+
+
+                if (response.code() == 200) {
+                    MovieModel clickedMovieResult = response.body();
+                    callbacks.onSuccess(clickedMovieResult);
+                    Log.v("Debug", "The Response:" + clickedMovieResult.getOriginal_title());
+                } else {
+                    try {
+                        Log.v("Debug", "Error: " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<MovieModel> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override

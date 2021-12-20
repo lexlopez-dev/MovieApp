@@ -29,6 +29,7 @@ public class SearchApiClient {
     private static SearchApiClient instance;
 
     String region = "US";
+    String language = "en";
 
 
     //Making Global RUNNABLE qequest
@@ -209,7 +210,8 @@ public class SearchApiClient {
             return Service.getTmdbApi().getUpcomingMovies(
                     Credentials.API_KEY,
                     page,
-                    region
+                    region,
+                    language
             );
         }
 

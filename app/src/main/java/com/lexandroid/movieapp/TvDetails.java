@@ -57,7 +57,7 @@ public class TvDetails extends AppCompatActivity {
             tvRatingFloat.setText(String.valueOf(tvModel.getVote_average()));
 
             Glide.with(this)
-                    .load(Credentials.IMG_URL + tvModel.getPoster_path())
+                    .load(Credentials.BEST_IMG_URL + tvModel.getPoster_path())
                     .into(tvImageView);
 
 

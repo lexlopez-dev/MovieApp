@@ -104,10 +104,10 @@ public class SearchActivity extends AppCompatActivity implements OnSearchListene
                         return true;
                     case R.id.search:
                         return true;
-                    case R.id.my_stuff:
-                        startActivity(new Intent(getApplicationContext(),MyStuffActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
+//                    case R.id.my_stuff:
+//                        startActivity(new Intent(getApplicationContext(),MyStuffActivity.class));
+//                        overridePendingTransition(0,0);
+//                        return true;
                 }
                 return false;
             }
@@ -233,9 +233,6 @@ public class SearchActivity extends AppCompatActivity implements OnSearchListene
                 }
             });
         }
-
-
-        //TODO: Need to adjust this method to check whether a movie or a tv show was clicked, and send to a TvDetails.class as needed
     }
 
 

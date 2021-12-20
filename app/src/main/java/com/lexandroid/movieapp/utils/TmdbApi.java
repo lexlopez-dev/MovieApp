@@ -68,7 +68,8 @@ public interface TmdbApi {
     Call<AllSearchResponse> getUpcomingMovies(
             @Query("api_key") String api_key,
             @Query("page") int page,
-            @Query("region") String region
+            @Query("region") String region,
+            @Query("language") String language
     );
 
     @GET(Credentials.BASE_URL + "trending/movie/day")
